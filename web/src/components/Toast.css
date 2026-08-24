@@ -1,0 +1,68 @@
+/* Toasts sit at the TOP.
+   Anchored to the bottom they landed directly on the control dock — so
+   confirming a colour change covered the colour field you were still using. */
+.toast-layer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(var(--sat) + 64px);
+  /* Above the sheet layer (80). The adverse toasts — link lost, command
+     failed — are most likely precisely while a sheet is open, and they were
+     rendering dimmed underneath its scrim. */
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 var(--s4);
+}
+
+/* A transient floating notification — glass, per Apple's own alert/toast
+   convention, with its own outer drop shadow layered onto the lensing insets. */
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  max-width: min(90vw, 460px);
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--lens-edge);
+  background: var(--glass-thick);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  color: var(--text);
+  font-size: var(--t-label);
+  box-shadow:
+    inset 0 1px 0 0 var(--lens-top),
+    inset 0 -1px 0 0 var(--lens-inner),
+    0 14px 36px -12px rgba(0, 0, 0, 0.95);
+  animation: toast-drop var(--dur) var(--ease) both;
+}
+
+/* Enters downward, matching where it comes from */
+@keyframes toast-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.toast.tone-ok {
+  color: var(--ok);
+  border-color: rgba(61, 214, 140, 0.3);
+}
+
+.toast.tone-error {
+  color: var(--danger);
+  border-color: rgba(255, 90, 95, 0.32);
+}
+
+@media (min-width: 900px) {
+  /* Centre over the content pane, not over the nav rail */
+  .toast-layer {
+    left: var(--rail-w);
+  }
+}

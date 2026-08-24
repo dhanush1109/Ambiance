@@ -1,0 +1,114 @@
+/* The launch sequence. Four phases over 1.2s, all of them compositor-only —
+   opacity and transform, never a filter or a blur radius, so the animation
+   holds 60fps on the first frames of a cold start when the JS engine is still
+   warming up.
+
+     0ms    bloom      logo settles in from 0.94 while its glow rises
+   300ms    sweep      one pass of light across the artwork
+   780ms    reveal     sheet fades, logo opens outward into the app
+  1200ms    done       component unmounts
+
+   Home is live and interactive underneath from the very first frame — this
+   layer never takes a pointer event. */
+
+.launch {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg, #000);
+  pointer-events: none;
+  animation: launch-out var(--dur-slow) var(--ease) 780ms forwards;
+}
+
+.launch-stage {
+  position: relative;
+  width: min(70vw, 320px);
+  /* matches logo-launch.jpg, so the box never letterboxes the artwork */
+  aspect-ratio: 900 / 757;
+  /* clips the sweep to the artwork. The logo's own margin is black, so the
+     bloom's blur is black out here too and loses nothing to the clip. */
+  overflow: hidden;
+  animation: launch-open var(--dur-slow) var(--ease) 780ms forwards;
+}
+
+.launch-logo,
+.launch-bloom {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.launch-logo {
+  animation: launch-in 420ms var(--ease-spring) both;
+}
+
+/* The neon power-on. A blurred copy screened over the sharp one: the blur is
+   static and only its opacity moves, which keeps the whole thing on the
+   compositor. Screen over black is a no-op, so only the neon lifts. */
+.launch-bloom {
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  animation: launch-glow 900ms var(--ease) both;
+}
+
+.launch-sweep {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.32) 45%,
+    rgba(255, 255, 255, 0.32) 55%,
+    transparent
+  );
+  mix-blend-mode: screen;
+  transform: translate3d(-160%, 0, 0);
+  animation: launch-sweep 620ms var(--ease) 300ms both;
+}
+
+@keyframes launch-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes launch-glow {
+  0% { opacity: 0; }
+  45% { opacity: 0.9; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes launch-sweep {
+  to { transform: translate3d(320%, 0, 0); }
+}
+
+/* Opens outward as it goes, so the logo reads as expanding into the app rather
+   than being switched off */
+@keyframes launch-open {
+  to { transform: scale(1.08); }
+}
+
+@keyframes launch-out {
+  to { opacity: 0; }
+}
+
+/* The component returns null under either reduced-motion signal, so these
+   never normally render. Kept as a floor: if the overlay somehow mounts, it
+   must appear and leave without motion rather than not leave at all. */
+@media (prefers-reduced-motion: reduce) {
+  .launch { animation: launch-out 1ms linear 200ms forwards; }
+  .launch-stage,
+  .launch-logo,
+  .launch-bloom,
+  .launch-sweep { animation: none; }
+  .launch-bloom { opacity: 0.4; }
+  .launch-sweep { display: none; }
+}

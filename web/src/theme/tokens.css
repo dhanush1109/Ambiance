@@ -1,0 +1,276 @@
+/* Ambiance — design tokens.
+   OLED-black base so the cabin glow is the only light source on screen.
+   Contrast on --bg (#000000): --text 21:1, --text-dim 12.7:1, --text-muted 7.6:1.
+
+   Two colours, two jobs — this is the core of the redesign:
+     --accent  a FIXED premium indigo. Every piece of app chrome: tabs, rings,
+               primary buttons, focus states. Never changes.
+     --light   the LIVE cabin colour, rewritten at runtime by App.jsx. Used only
+               where it actually means the lights: the car, swatches, mood
+               previews, the ambient backdrop. The app no longer paints itself
+               orange just because the cabin is set to orange. */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces — content layer is solid, never glass */
+  --bg: #000000;
+  --bg-raise: #0b0c0f;
+  --surface: #131519;
+  --surface-2: #1a1d23;
+  --surface-3: #23272f;
+
+  --hairline: rgba(255, 255, 255, 0.07);
+  --hairline-strong: rgba(255, 255, 255, 0.14);
+
+  /* Text */
+  --text: #ffffff;
+  --text-dim: #c3cad5;
+  --text-muted: #939caa;
+
+  /* Fixed semantics */
+  --gold: #c9a227;
+  --danger: #ff6961;
+  --ok: #32d74b;
+
+  /* Accent — fixed System Indigo (Apple's dark-mode palette), the app's one
+     premium colour. Never rewritten. */
+  --accent: #5e5ce6;
+  --accent-soft: rgba(94, 92, 230, 0.18);
+  --accent-glow: rgba(94, 92, 230, 0.55);
+  --accent-press: #4a48c4;
+  /* Indigo measures ~4.9:1 on black — enough for large text and UI, not body
+     copy. --on-accent is what sits ON a filled accent surface. */
+  --on-accent: #ffffff;
+
+  /* Light — the live cabin colour. Written at runtime by App.jsx from
+     dominantHex(). Defaults match the app's own default zone colour. */
+  --light: #ff8a3d;
+  --light-soft: rgba(255, 138, 61, 0.18);
+  --light-glow: rgba(255, 138, 61, 0.55);
+
+  /* Glass — three depths, all meant to sit OVER the ambient backdrop
+     (components/AmbientBackdrop) or the car's own glow. Blurring flat black
+     returns flat black, so glass without a backdrop under it is invisible;
+     the backdrop is what gives every one of these something to refract. */
+  --glass-thin: rgba(20, 22, 28, 0.42);
+  --glass: rgba(18, 20, 26, 0.58);
+  --glass-thick: rgba(14, 16, 21, 0.74);
+
+  /* Vibrancy — fills and text for anything sitting ON glass. Never blur an
+     element that is already on a blurred surface ("never glass on glass");
+     style it with these instead. */
+  --fill-1: rgba(255, 255, 255, 0.08);
+  --fill-2: rgba(255, 255, 255, 0.13);
+  --fill-3: rgba(255, 255, 255, 0.19);
+  --vibrant-label: rgba(255, 255, 255, 0.94);
+  --vibrant-secondary: rgba(255, 255, 255, 0.7);
+  --vibrant-tertiary: rgba(255, 255, 255, 0.46);
+
+  /* Lensing — the specular highlight along a glass surface's top edge is
+     what makes it read as a physical, refractive material rather than a
+     translucent div. */
+  --lens-top: rgba(255, 255, 255, 0.38);
+  --lens-edge: rgba(255, 255, 255, 0.1);
+  --lens-inner: rgba(0, 0, 0, 0.3);
+
+  /* Radii — concentric convention: inner radius = parent radius − padding */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Spacing */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+
+  /* Type — one family, varied by weight/tracking/size, the way SF Pro is used
+     rather than pairing unrelated display/body fonts. */
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --t-wordmark: clamp(34px, 8vw, 46px);
+  --t-display: clamp(28px, 7vw, 40px);
+  --t-title: clamp(20px, 4.5vw, 26px);
+  --t-head: 17px;
+  --t-body: 15px;
+  --t-label: 13px;
+  --t-caption: 12px;
+  --t-caps: 11px;
+
+  /* Tracking is a hierarchy lever in its own right — wide caps read as
+     "instrument label" without needing size or weight. */
+  --track-caps: 0.14em;
+
+  /* Motion */
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 420ms;
+  --dur-accent: 400ms;
+  --dur-sheen: 700ms;
+  --dur-draw: 1200ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Safe areas + chrome */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --nav-h: 72px;
+  --rail-w: 108px;
+}
+
+/* ---------- animatable light colour ----------
+
+   Registering --light as a real colour type lets it TRANSITION: applying a
+   mood or dragging the colour field glides the car and its previews to the
+   new hue instead of snapping. --accent is fixed and needs no such registration.
+   Browsers without @property just skip this and snap, which is harmless. */
+
+@property --light {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #ff8a3d;
+}
+@property --light-soft {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(255, 138, 61, 0.18);
+}
+@property --light-glow {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(255, 138, 61, 0.55);
+}
+
+:root {
+  transition:
+    --light var(--dur-accent) var(--ease),
+    --light-soft var(--dur-accent) var(--ease),
+    --light-glow var(--dur-accent) var(--ease);
+}
+
+/* body[data-*] can't select :root, so App mirrors the flag onto <html> too */
+:root[data-reduce-motion='1'] {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    transition: none;
+  }
+}
+
+/* ---------- reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  /* The cabin glow (.carhero-wash) deliberately bleeds past the car's own
+     edges to paint its light pool — clip stops that turning into a page-wide
+     horizontal scrollbar. `clip`, not `hidden`: `hidden` would create a new
+     scroll container and break the app's `position: sticky` elements (the
+     floating control dock, the tablet's sticky car pane). */
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  touch-action: manipulation;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  /* Long-pressing a control in an Android WebView otherwise pops selection
+     handles over the label. The hex readout is an <output>, so it stays
+     selectable for copying. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+svg {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Numerals line up in readouts (brightness, hex, RSSI) */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Wide tracked caps — the instrument-label voice used for every secondary
+   heading. Applied via CSS only, so the DOM text stays sentence case and
+   screen readers don't spell it out. */
+.caps-label {
+  font-family: var(--font-display);
+  font-size: var(--t-caps);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- safe-area helpers ---------- */
+
+.pad-top-safe {
+  padding-top: calc(var(--s4) + var(--sat));
+}
+
+.pad-bottom-safe {
+  padding-bottom: calc(var(--s4) + var(--sab));
+}

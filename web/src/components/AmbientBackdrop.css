@@ -1,0 +1,64 @@
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.ambient-blob {
+  position: absolute;
+  width: 130vmax;
+  height: 130vmax;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.ambient-blob-a {
+  top: -40vmax;
+  left: -30vmax;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--light) 5%, transparent),
+    transparent 62%
+  );
+  animation: ambient-drift-a 46s var(--ease) infinite alternate;
+}
+
+.ambient-blob-b {
+  bottom: -50vmax;
+  right: -35vmax;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--light) 4%, transparent),
+    transparent 60%
+  );
+  animation: ambient-drift-b 58s var(--ease) infinite alternate;
+}
+
+@keyframes ambient-drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(6vmax, 4vmax) scale(1.08); }
+}
+
+@keyframes ambient-drift-b {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-5vmax, -6vmax) scale(1.1); }
+}
+
+/* Frozen, not hidden — the tint stays, it just stops moving */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none;
+  }
+}
+
+body[data-reduce-motion="1"] .ambient-blob {
+  animation: none;
+}
+
+/* No glass to refract it, no point spending GPU on it */
+body[data-reduce-glass="1"] .ambient-backdrop {
+  display: none;
+}

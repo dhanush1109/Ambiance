@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Capacitor generated iOS (Android project is committed)
+ios/
+
+# Signing — never commit these
+*.keystore
+*.jks
+keystore.properties
+
+.DS_Store
+*.log

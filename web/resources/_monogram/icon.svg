@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Ambiance app icon. The monogram is drawn as paths, not text, so no font
+       needs to be present when the Android asset generator rasterises this. -->
+  <defs>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0%" stop-color="#ff8a3d"/>
+      <stop offset="55%" stop-color="#ff5e1f"/>
+      <stop offset="100%" stop-color="#c22f06"/>
+    </linearGradient>
+    <radialGradient id="pool" cx="50%" cy="66%" r="52%">
+      <stop offset="0%" stop-color="#ff8a3d" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#ff8a3d" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ff8a3d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="#000000"/>
+  <circle cx="512" cy="600" r="420" fill="url(#pool)"/>
+
+  <!-- Cabin light arc sweeping beneath the monogram -->
+  <path d="M196 690 A 340 340 0 0 1 828 690"
+        fill="none" stroke="url(#arc)" stroke-width="34" stroke-linecap="round"/>
+
+  <!-- "A" -->
+  <path d="M512 250 L392 566 L452 566 L512 400 L572 566 L632 566 Z" fill="#ffffff"/>
+  <rect x="466" y="470" width="92" height="34" rx="17" fill="#000000"/>
+</svg>

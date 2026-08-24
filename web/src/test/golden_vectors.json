@@ -1,0 +1,3020 @@
+{
+  "power": [
+    {
+      "args": {
+        "hw": "A",
+        "on": true
+      },
+      "hex": "3C 30 37 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "on": false
+      },
+      "hex": "3C 30 37 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "on": true
+      },
+      "hex": "3B 30 00 00 00 F0 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "on": false
+      },
+      "hex": "3B 30 00 00 00 0F B3"
+    }
+  ],
+  "rgb": [
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 1,
+        "color": "000000"
+      },
+      "hex": "3C 31 30 30 30 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 1,
+        "color": "ffffff"
+      },
+      "hex": "3C 31 30 66 66 66 66 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 1,
+        "color": "ff0000"
+      },
+      "hex": "3C 31 30 66 66 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 1,
+        "color": "00ff00"
+      },
+      "hex": "3C 31 30 30 30 66 66 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 1,
+        "color": "0000ff"
+      },
+      "hex": "3C 31 30 30 30 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 1,
+        "color": "ff8a3d"
+      },
+      "hex": "3C 31 30 66 66 38 61 33 64 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 1,
+        "color": "12ab7c"
+      },
+      "hex": "3C 31 30 31 32 61 62 37 63 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 1,
+        "color": "7b00ff"
+      },
+      "hex": "3C 31 30 37 62 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 1,
+        "color": "ffcc00"
+      },
+      "hex": "3C 31 30 66 66 63 63 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 1,
+        "color": "0a0b0e"
+      },
+      "hex": "3C 31 30 30 61 30 62 30 65 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 2,
+        "color": "000000"
+      },
+      "hex": "3C 30 39 30 30 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 2,
+        "color": "ffffff"
+      },
+      "hex": "3C 30 39 66 66 66 66 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 2,
+        "color": "ff0000"
+      },
+      "hex": "3C 30 39 66 66 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 2,
+        "color": "00ff00"
+      },
+      "hex": "3C 30 39 30 30 66 66 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 2,
+        "color": "0000ff"
+      },
+      "hex": "3C 30 39 30 30 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 2,
+        "color": "ff8a3d"
+      },
+      "hex": "3C 30 39 66 66 38 61 33 64 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 2,
+        "color": "12ab7c"
+      },
+      "hex": "3C 30 39 31 32 61 62 37 63 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 2,
+        "color": "7b00ff"
+      },
+      "hex": "3C 30 39 37 62 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 2,
+        "color": "ffcc00"
+      },
+      "hex": "3C 30 39 66 66 63 63 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 2,
+        "color": "0a0b0e"
+      },
+      "hex": "3C 30 39 30 61 30 62 30 65 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 3,
+        "color": "000000"
+      },
+      "hex": "3C 30 36 30 30 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 3,
+        "color": "ffffff"
+      },
+      "hex": "3C 30 36 66 66 66 66 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 3,
+        "color": "ff0000"
+      },
+      "hex": "3C 30 36 66 66 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 3,
+        "color": "00ff00"
+      },
+      "hex": "3C 30 36 30 30 66 66 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 3,
+        "color": "0000ff"
+      },
+      "hex": "3C 30 36 30 30 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 3,
+        "color": "ff8a3d"
+      },
+      "hex": "3C 30 36 66 66 38 61 33 64 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 3,
+        "color": "12ab7c"
+      },
+      "hex": "3C 30 36 31 32 61 62 37 63 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 3,
+        "color": "7b00ff"
+      },
+      "hex": "3C 30 36 37 62 30 30 66 66 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 3,
+        "color": "ffcc00"
+      },
+      "hex": "3C 30 36 66 66 63 63 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 3,
+        "color": "0a0b0e"
+      },
+      "hex": "3C 30 36 30 61 30 62 30 65 3E"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 1,
+        "color": "000000"
+      },
+      "hex": "3B 33 01 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 1,
+        "color": "ffffff"
+      },
+      "hex": "3B 33 01 FF FF FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 1,
+        "color": "ff0000"
+      },
+      "hex": "3B 33 01 FF 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 1,
+        "color": "00ff00"
+      },
+      "hex": "3B 33 01 00 FF 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 1,
+        "color": "0000ff"
+      },
+      "hex": "3B 33 01 00 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 1,
+        "color": "ff8a3d"
+      },
+      "hex": "3B 33 01 FF 8A 3D B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 1,
+        "color": "12ab7c"
+      },
+      "hex": "3B 33 01 12 AB 7C B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 1,
+        "color": "7b00ff"
+      },
+      "hex": "3B 33 01 7B 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 1,
+        "color": "ffcc00"
+      },
+      "hex": "3B 33 01 FF CC 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 1,
+        "color": "0a0b0e"
+      },
+      "hex": "3B 33 01 0A 0B 0E B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 2,
+        "color": "000000"
+      },
+      "hex": "3B 33 02 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 2,
+        "color": "ffffff"
+      },
+      "hex": "3B 33 02 FF FF FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 2,
+        "color": "ff0000"
+      },
+      "hex": "3B 33 02 FF 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 2,
+        "color": "00ff00"
+      },
+      "hex": "3B 33 02 00 FF 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 2,
+        "color": "0000ff"
+      },
+      "hex": "3B 33 02 00 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 2,
+        "color": "ff8a3d"
+      },
+      "hex": "3B 33 02 FF 8A 3D B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 2,
+        "color": "12ab7c"
+      },
+      "hex": "3B 33 02 12 AB 7C B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 2,
+        "color": "7b00ff"
+      },
+      "hex": "3B 33 02 7B 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 2,
+        "color": "ffcc00"
+      },
+      "hex": "3B 33 02 FF CC 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 2,
+        "color": "0a0b0e"
+      },
+      "hex": "3B 33 02 0A 0B 0E B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "zone": 3,
+        "color": "000000"
+      },
+      "hex": "3B 33 03 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "zone": 3,
+        "color": "ffffff"
+      },
+      "hex": "3B 33 03 FF FF FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "zone": 3,
+        "color": "ff0000"
+      },
+      "hex": "3B 33 03 FF 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 255,
+        "b": 0,
+        "zone": 3,
+        "color": "00ff00"
+      },
+      "hex": "3B 33 03 00 FF 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 0,
+        "g": 0,
+        "b": 255,
+        "zone": 3,
+        "color": "0000ff"
+      },
+      "hex": "3B 33 03 00 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 138,
+        "b": 61,
+        "zone": 3,
+        "color": "ff8a3d"
+      },
+      "hex": "3B 33 03 FF 8A 3D B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 18,
+        "g": 171,
+        "b": 124,
+        "zone": 3,
+        "color": "12ab7c"
+      },
+      "hex": "3B 33 03 12 AB 7C B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 123,
+        "g": 0,
+        "b": 255,
+        "zone": 3,
+        "color": "7b00ff"
+      },
+      "hex": "3B 33 03 7B 00 FF B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "zone": 3,
+        "color": "ffcc00"
+      },
+      "hex": "3B 33 03 FF CC 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "r": 10,
+        "g": 11,
+        "b": 14,
+        "zone": 3,
+        "color": "0a0b0e"
+      },
+      "hex": "3B 33 03 0A 0B 0E B3"
+    }
+  ],
+  "brightness": [
+    {
+      "args": {
+        "hw": "A",
+        "level": 0,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 1,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 2,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 3,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 4,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 5,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 6,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 7,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 37 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 8,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 38 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 9,
+        "zone": 1
+      },
+      "hex": "3C 30 31 30 31 30 39 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 0,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 1,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 2,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 3,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 4,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 5,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 6,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 7,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 37 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 8,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 38 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 9,
+        "zone": 2
+      },
+      "hex": "3C 30 31 30 32 30 39 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 0,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 1,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 2,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 3,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 4,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 5,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 6,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 7,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 37 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 8,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 38 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "level": 9,
+        "zone": 3
+      },
+      "hex": "3C 30 32 30 30 30 39 3E"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 0,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 1,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 01 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 2,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 02 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 3,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 03 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 4,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 04 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 5,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 05 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 6,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 06 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 7,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 07 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 8,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 08 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 9,
+        "zone": 1
+      },
+      "hex": "3B 39 F1 00 00 09 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 0,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 1,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 01 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 2,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 02 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 3,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 03 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 4,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 04 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 5,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 05 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 6,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 06 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 7,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 07 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 8,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 08 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 9,
+        "zone": 2
+      },
+      "hex": "3B 39 F2 00 00 09 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 0,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 00 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 1,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 01 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 2,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 02 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 3,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 03 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 4,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 04 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 5,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 05 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 6,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 06 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 7,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 07 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 8,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 08 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "level": 9,
+        "zone": 3
+      },
+      "hex": "3B 39 F3 00 00 09 B3"
+    }
+  ],
+  "rgbMode": [
+    {
+      "args": {
+        "hw": "A",
+        "select": 1,
+        "name": "Rainbow Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 2,
+        "name": "Red-Purple Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 3,
+        "name": "Cyan-Orange Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 4,
+        "name": "Blue-Yellow Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 5,
+        "name": "Cyan-Purple Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 6,
+        "name": "Red-Green Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 7,
+        "name": "Red-Blue Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 8,
+        "name": "Green-Blue Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 37 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 9,
+        "name": "Red-Green Gradient 2"
+      },
+      "hex": "3C 30 34 30 30 30 38 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 10,
+        "name": "Red-Green-Blue Gradient"
+      },
+      "hex": "3C 30 34 30 30 30 39 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 11,
+        "name": "Cyan-Yellow-Purple Gradient"
+      },
+      "hex": "3C 30 34 30 30 31 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 12,
+        "name": "Blue-Purple-White Gradient"
+      },
+      "hex": "3C 30 34 30 30 31 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 13,
+        "name": "Colorful Flash"
+      },
+      "hex": "3C 30 34 30 31 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 14,
+        "name": "Red Flash"
+      },
+      "hex": "3C 30 34 30 31 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 15,
+        "name": "Green Flash"
+      },
+      "hex": "3C 30 34 30 31 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 16,
+        "name": "Blue Flash"
+      },
+      "hex": "3C 30 34 30 31 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 17,
+        "name": "Yellow Flash"
+      },
+      "hex": "3C 30 34 30 31 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 18,
+        "name": "Cyan Flash"
+      },
+      "hex": "3C 30 34 30 31 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 19,
+        "name": "Purple Flash"
+      },
+      "hex": "3C 30 34 30 31 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 20,
+        "name": "White Flash"
+      },
+      "hex": "3C 30 34 30 31 30 37 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 21,
+        "name": "Red-Green-Blue Flash"
+      },
+      "hex": "3C 30 34 30 31 30 38 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 22,
+        "name": "Colorful Jump"
+      },
+      "hex": "3C 30 34 30 32 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 23,
+        "name": "Red-Green-Blue Jump"
+      },
+      "hex": "3C 30 34 30 32 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 24,
+        "name": "Cyan-Purple-Orange Jump"
+      },
+      "hex": "3C 30 34 30 32 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 25,
+        "name": "Colorful Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 30 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 26,
+        "name": "Red-Green-Blue Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 31 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 27,
+        "name": "Cyan-Purple-Orange Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 32 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 28,
+        "name": "Red Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 33 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 29,
+        "name": "Blue Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 34 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 30,
+        "name": "Green Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 35 3E"
+    },
+    {
+      "args": {
+        "hw": "A",
+        "select": 31,
+        "name": "Purple Breathing"
+      },
+      "hex": "3C 30 34 30 34 30 36 3E"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 1,
+        "name": "Rainbow Gradient"
+      },
+      "hex": "3B 34 34 34 34 07 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 2,
+        "name": "Red-Purple Gradient"
+      },
+      "hex": "3B 34 34 34 34 04 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 3,
+        "name": "Cyan-Orange Gradient"
+      },
+      "hex": "3B 34 34 34 34 08 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 4,
+        "name": "Blue-Yellow Gradient"
+      },
+      "hex": "3B 34 34 34 34 05 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 5,
+        "name": "Cyan-Purple Gradient"
+      },
+      "hex": "3B 34 34 34 34 0A B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 6,
+        "name": "Red-Green Gradient"
+      },
+      "hex": "3B 34 34 34 34 02 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 7,
+        "name": "Red-Blue Gradient"
+      },
+      "hex": "3B 34 34 34 34 01 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 8,
+        "name": "Green-Blue Gradient"
+      },
+      "hex": "3B 34 34 34 34 05 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 9,
+        "name": "Red-Green Gradient 2"
+      },
+      "hex": "3B 34 34 34 34 02 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 10,
+        "name": "Red-Green-Blue Gradient"
+      },
+      "hex": "3B 34 34 34 34 03 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 11,
+        "name": "Cyan-Yellow-Purple Gradient"
+      },
+      "hex": "3B 34 34 34 34 09 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 12,
+        "name": "Blue-Purple-White Gradient"
+      },
+      "hex": "3B 34 34 34 34 06 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 13,
+        "name": "Colorful Flash"
+      },
+      "hex": "3B 34 34 34 34 21 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 14,
+        "name": "Red Flash"
+      },
+      "hex": "3B 34 34 34 34 1D B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 15,
+        "name": "Green Flash"
+      },
+      "hex": "3B 34 34 34 34 20 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 16,
+        "name": "Blue Flash"
+      },
+      "hex": "3B 34 34 34 34 1F B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 17,
+        "name": "Yellow Flash"
+      },
+      "hex": "3B 34 34 34 34 1E B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 18,
+        "name": "Cyan Flash"
+      },
+      "hex": "3B 34 34 34 34 22 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 19,
+        "name": "Purple Flash"
+      },
+      "hex": "3B 34 34 34 34 23 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 20,
+        "name": "White Flash"
+      },
+      "hex": "3B 34 34 34 34 1B B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 21,
+        "name": "Red-Green-Blue Flash"
+      },
+      "hex": "3B 34 34 34 34 1C B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 22,
+        "name": "Colorful Jump"
+      },
+      "hex": "3B 34 34 34 34 12 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 23,
+        "name": "Red-Green-Blue Jump"
+      },
+      "hex": "3B 34 34 34 34 11 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 24,
+        "name": "Cyan-Purple-Orange Jump"
+      },
+      "hex": "3B 34 34 34 34 13 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 25,
+        "name": "Colorful Breathing"
+      },
+      "hex": "3B 34 34 34 34 18 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 26,
+        "name": "Red-Green-Blue Breathing"
+      },
+      "hex": "3B 34 34 34 34 14 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 27,
+        "name": "Cyan-Purple-Orange Breathing"
+      },
+      "hex": "3B 34 34 34 34 19 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 28,
+        "name": "Red Breathing"
+      },
+      "hex": "3B 34 34 34 34 15 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 29,
+        "name": "Blue Breathing"
+      },
+      "hex": "3B 34 34 34 34 16 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 30,
+        "name": "Green Breathing"
+      },
+      "hex": "3B 34 34 34 34 17 B3"
+    },
+    {
+      "args": {
+        "hw": "B",
+        "select": 31,
+        "name": "Purple Breathing"
+      },
+      "hex": "3B 34 34 34 34 1A B3"
+    }
+  ],
+  "symphony": [
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 1,
+        "name": "Color Flow"
+      },
+      "hex": "3C 32 38 30 31 39 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 2,
+        "name": "RGB Color Flow"
+      },
+      "hex": "3C 32 38 30 31 39 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 3,
+        "name": "Cyan-Yellow-Purple Flow"
+      },
+      "hex": "3C 32 38 30 31 39 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 4,
+        "name": "Red-Blue Flow"
+      },
+      "hex": "3C 32 38 30 31 39 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 5,
+        "name": "Orange-Purple Flow"
+      },
+      "hex": "3C 32 38 30 31 39 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 6,
+        "name": "Yellow-Blue Flow"
+      },
+      "hex": "3C 32 38 30 31 39 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 7,
+        "name": "Cyan-Purple Flow"
+      },
+      "hex": "3C 32 38 30 31 39 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 8,
+        "name": "Color Trail"
+      },
+      "hex": "3C 32 38 30 30 32 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 9,
+        "name": "Red-Blue Trail"
+      },
+      "hex": "3C 32 38 30 30 32 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 10,
+        "name": "Red Trail"
+      },
+      "hex": "3C 32 38 30 30 32 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 11,
+        "name": "Purple Trail"
+      },
+      "hex": "3C 32 38 30 30 32 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 12,
+        "name": "Blue Trail"
+      },
+      "hex": "3C 32 38 30 30 32 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 13,
+        "name": "Yellow Trail"
+      },
+      "hex": "3C 32 38 30 30 32 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 14,
+        "name": "Cyan Trail"
+      },
+      "hex": "3C 32 38 30 30 32 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 15,
+        "name": "Colorful Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 16,
+        "name": "Cyan Yellow Purple Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 17,
+        "name": "Red Green Blue Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 18,
+        "name": "Orange Blue Purple Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 19,
+        "name": "Red Blue Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 20,
+        "name": "Red Green Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 21,
+        "name": "Green Purple Curtain"
+      },
+      "hex": "3C 32 38 30 30 33 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 22,
+        "name": "Colorful Curtain 2"
+      },
+      "hex": "3C 32 38 30 30 34 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 23,
+        "name": "Cyan Yellow Purple Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 24,
+        "name": "Red Blue Orange Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 25,
+        "name": "Red Blue Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 26,
+        "name": "Red Green Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 27,
+        "name": "Red Pink Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 28,
+        "name": "Cyan Blue Chasing"
+      },
+      "hex": "3C 32 38 30 30 34 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 29,
+        "name": "Colorful Closing"
+      },
+      "hex": "3C 32 38 30 30 35 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 30,
+        "name": "Cyan Yellow Purple Closing"
+      },
+      "hex": "3C 32 38 30 30 35 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 31,
+        "name": "Red Green Blue Closing"
+      },
+      "hex": "3C 32 38 30 30 35 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 32,
+        "name": "Orange Blue Purple Closing"
+      },
+      "hex": "3C 32 38 30 30 35 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 33,
+        "name": "Red Blue Closing"
+      },
+      "hex": "3C 32 38 30 30 35 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 34,
+        "name": "Red Green Closing"
+      },
+      "hex": "3C 32 38 30 30 35 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 35,
+        "name": "Green Purple Closing"
+      },
+      "hex": "3C 32 38 30 30 35 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 36,
+        "name": "Colorful Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 37,
+        "name": "Cyan Yellow Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 38,
+        "name": "Red Green Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 39,
+        "name": "Purple Orange Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 40,
+        "name": "Red Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 41,
+        "name": "Purple Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 42,
+        "name": "Blue Welcome"
+      },
+      "hex": "3C 32 38 30 30 36 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 43,
+        "name": "Colorful Jump"
+      },
+      "hex": "3C 32 38 30 30 37 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 44,
+        "name": "Red Green Blue Jump"
+      },
+      "hex": "3C 32 38 30 30 37 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 45,
+        "name": "Cyan Purple Yellow Jump"
+      },
+      "hex": "3C 32 38 30 30 37 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 46,
+        "name": "Red Blue Jump"
+      },
+      "hex": "3C 32 38 30 30 37 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 47,
+        "name": "Red Green Jump"
+      },
+      "hex": "3C 32 38 30 30 37 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 48,
+        "name": "Red Purple Jump"
+      },
+      "hex": "3C 32 38 30 30 37 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 49,
+        "name": "Blue Purple Jump"
+      },
+      "hex": "3C 32 38 30 30 37 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 50,
+        "name": "Red Green Blue Wave"
+      },
+      "hex": "3C 32 38 30 30 38 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 51,
+        "name": "Cyan Purple Yellow Wave"
+      },
+      "hex": "3C 32 38 30 30 38 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 52,
+        "name": "Orange Blue Purple Wave"
+      },
+      "hex": "3C 32 38 30 30 38 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 53,
+        "name": "Blue Wave"
+      },
+      "hex": "3C 32 38 30 30 38 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 54,
+        "name": "Purple Wave"
+      },
+      "hex": "3C 32 38 30 30 38 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 55,
+        "name": "Red Wave"
+      },
+      "hex": "3C 32 38 30 30 38 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 56,
+        "name": "Yellow Wave"
+      },
+      "hex": "3C 32 38 30 30 38 37 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 57,
+        "name": "Purple White Purple Flow"
+      },
+      "hex": "3C 32 38 30 30 39 31 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 58,
+        "name": "Red White Red Flow"
+      },
+      "hex": "3C 32 38 30 30 39 32 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 59,
+        "name": "Blue White Blue Flow"
+      },
+      "hex": "3C 32 38 30 30 39 33 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 60,
+        "name": "Green White Green Flow"
+      },
+      "hex": "3C 32 38 30 30 39 34 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 61,
+        "name": "Yellow White Yellow Flow"
+      },
+      "hex": "3C 32 38 30 30 39 35 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 62,
+        "name": "Cyan White Cyan Flow"
+      },
+      "hex": "3C 32 38 30 30 39 36 3E"
+    },
+    {
+      "args": {
+        "kind": "dazzle",
+        "mode": 63,
+        "name": "Orange White Orange Flow"
+      },
+      "hex": "3C 32 38 30 30 39 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 1,
+        "name": "Colorful Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 2,
+        "name": "Red Blue Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 3,
+        "name": "Red Green Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 4,
+        "name": "Green Blue Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 5,
+        "name": "Red Yellow Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 6,
+        "name": "Cyan Yellow Purple Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 7,
+        "name": "Red Blue Orange Spectrum"
+      },
+      "hex": "3C 32 38 30 31 33 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 8,
+        "name": "Colorful Extension"
+      },
+      "hex": "3C 32 38 30 31 34 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 9,
+        "name": "Red Blue Extension"
+      },
+      "hex": "3C 32 38 30 31 34 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 10,
+        "name": "Red Green Extension"
+      },
+      "hex": "3C 32 38 30 31 34 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 11,
+        "name": "Green Blue Extension"
+      },
+      "hex": "3C 32 38 30 31 34 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 12,
+        "name": "Red Yellow Extension"
+      },
+      "hex": "3C 32 38 30 31 34 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 13,
+        "name": "Cyan Yellow Purple Extension"
+      },
+      "hex": "3C 32 38 30 31 34 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 14,
+        "name": "Red Blue Orange Extension"
+      },
+      "hex": "3C 32 38 30 31 34 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 15,
+        "name": "Colorful Wave"
+      },
+      "hex": "3C 32 38 30 31 35 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 16,
+        "name": "Red Blue Wave"
+      },
+      "hex": "3C 32 38 30 31 35 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 17,
+        "name": "Red Green Wave"
+      },
+      "hex": "3C 32 38 30 31 35 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 18,
+        "name": "Green Blue Wave"
+      },
+      "hex": "3C 32 38 30 31 35 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 19,
+        "name": "Red Yellow Wave"
+      },
+      "hex": "3C 32 38 30 31 35 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 20,
+        "name": "Cyan Yellow Purple Wave"
+      },
+      "hex": "3C 32 38 30 31 35 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 21,
+        "name": "Red Blue Orange Wave"
+      },
+      "hex": "3C 32 38 30 31 35 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 22,
+        "name": "Colorful Column"
+      },
+      "hex": "3C 32 38 30 31 36 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 23,
+        "name": "Red Blue Column"
+      },
+      "hex": "3C 32 38 30 31 36 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 24,
+        "name": "Red Green Column"
+      },
+      "hex": "3C 32 38 30 31 36 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 25,
+        "name": "Green Blue Column"
+      },
+      "hex": "3C 32 38 30 31 36 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 26,
+        "name": "Red Yellow Column"
+      },
+      "hex": "3C 32 38 30 31 36 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 27,
+        "name": "Cyan Yellow Purple Column"
+      },
+      "hex": "3C 32 38 30 31 36 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 28,
+        "name": "Red Blue Orange Column"
+      },
+      "hex": "3C 32 38 30 31 36 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 29,
+        "name": "Colorful Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 30,
+        "name": "Red Blue Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 31,
+        "name": "Red Green Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 32,
+        "name": "Green Blue Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 33,
+        "name": "Red Yellow Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 34,
+        "name": "Cyan Yellow Purple Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 35,
+        "name": "Red Blue Orange Contraction"
+      },
+      "hex": "3C 32 38 30 31 37 37 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 36,
+        "name": "Multi-color Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 31 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 37,
+        "name": "Red and Blue Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 32 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 38,
+        "name": "Red and Green Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 33 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 39,
+        "name": "Green and Blue Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 34 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 40,
+        "name": "Red and Yellow Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 35 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 41,
+        "name": "Cyan Yellow Purple Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 36 3E"
+    },
+    {
+      "args": {
+        "kind": "music",
+        "mode": 42,
+        "name": "Red Blue Orange Rhythm"
+      },
+      "hex": "3C 32 38 30 31 38 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 1,
+        "name": "Multi-color Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 2,
+        "name": "Red and Blue Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 3,
+        "name": "Red and Green Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 4,
+        "name": "Yellow Cyan Purple Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 5,
+        "name": "Red White Blue Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 6,
+        "name": "Red Yellow Cyan Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 7,
+        "name": "Red White Yellow Fantasy"
+      },
+      "hex": "3C 32 38 30 32 37 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 8,
+        "name": "Red Green Blue Transition"
+      },
+      "hex": "3C 32 38 30 30 41 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 9,
+        "name": "Yellow Cyan Purple Transition"
+      },
+      "hex": "3C 32 38 30 30 41 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 10,
+        "name": "Six-color Transition Red"
+      },
+      "hex": "3C 32 38 30 30 41 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 11,
+        "name": "Six-color Transition Green"
+      },
+      "hex": "3C 32 38 30 30 41 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 12,
+        "name": "Six-color Transition Blue"
+      },
+      "hex": "3C 32 38 30 30 41 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 13,
+        "name": "Six-color Transition Purple"
+      },
+      "hex": "3C 32 38 30 30 41 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 14,
+        "name": "Six-color Transition Orange"
+      },
+      "hex": "3C 32 38 30 30 41 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 15,
+        "name": "Seven-color Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 16,
+        "name": "Red Green Blue Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 17,
+        "name": "Cyan Yellow Purple Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 18,
+        "name": "Red White Yellow Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 19,
+        "name": "Blue White Cyan Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 20,
+        "name": "Red Blue Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 21,
+        "name": "Red Purple Open-Close"
+      },
+      "hex": "3C 32 38 30 30 42 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 22,
+        "name": "Seven-color Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 23,
+        "name": "Cyan Yellow Purple Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 24,
+        "name": "Red Blue Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 25,
+        "name": "Red Yellow Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 26,
+        "name": "Cyan Purple Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 27,
+        "name": "Green Yellow Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 28,
+        "name": "Red Green Gradient"
+      },
+      "hex": "3C 32 38 30 30 44 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 29,
+        "name": "Red Green Blue Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 30,
+        "name": "Cyan Blue Purple Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 31,
+        "name": "Red Blue Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 32,
+        "name": "Cyan Orange Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 33,
+        "name": "Red Purple Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 34,
+        "name": "Blue Green Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 35,
+        "name": "Cyan Purple Dynamic Shadow"
+      },
+      "hex": "3C 32 38 30 30 45 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 36,
+        "name": "Multi-color Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 37,
+        "name": "Cyan Yellow Purple Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 38,
+        "name": "Red Blue Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 39,
+        "name": "Yellow Purple Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 40,
+        "name": "Red Green Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 41,
+        "name": "Red White Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 42,
+        "name": "Cyan Purple Magic Flowing"
+      },
+      "hex": "3C 32 38 30 30 46 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 43,
+        "name": "Blue Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 44,
+        "name": "Purple Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 45,
+        "name": "Red Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 46,
+        "name": "Green Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 47,
+        "name": "Cyan Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 48,
+        "name": "Orange Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 49,
+        "name": "Yellow Light Shadow"
+      },
+      "hex": "3C 32 38 30 31 30 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 50,
+        "name": "Red Green Blue Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 51,
+        "name": "Cyan Yellow Purple Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 52,
+        "name": "Purple Orange Blue Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 53,
+        "name": "Red Purple Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 54,
+        "name": "Cyan Orange Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 55,
+        "name": "Blue Green Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 56,
+        "name": "Cyan Purple Breathing"
+      },
+      "hex": "3C 32 38 30 31 31 37 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 57,
+        "name": "Colorful Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 31 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 58,
+        "name": "Green-Blue Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 32 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 59,
+        "name": "Cyan-Yellow-Purple Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 33 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 60,
+        "name": "Red Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 34 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 61,
+        "name": "Blue Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 35 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 62,
+        "name": "Green Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 36 3E"
+    },
+    {
+      "args": {
+        "kind": "shadow",
+        "mode": 63,
+        "name": "Purple Stacking"
+      },
+      "hex": "3C 32 38 30 31 32 37 3E"
+    }
+  ]
+}

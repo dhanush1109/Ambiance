@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Hand-finished after @capacitor/assets. Re-running the generator overwrites
+  this file, so re-apply both changes if you do:
+
+  1. The background is a colour, not the generated ic_launcher_background image.
+     The generator wraps every layer in <inset 16.7%>, which leaves an image
+     background transparent in the outer ring — the part a launcher reveals
+     during parallax or with a mask wider than the safe zone. A colour fills
+     all 108dp by definition and costs nothing.
+  2. <monochrome> for Android 13+ themed icons. The generator does not emit
+     one, and without it a themed launcher falls back to a flat generic tile.
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/launcher_bg" />
+    <foreground>
+        <inset android:drawable="@mipmap/ic_launcher_foreground" android:inset="16.7%" />
+    </foreground>
+    <monochrome>
+        <inset android:drawable="@mipmap/ic_launcher_monochrome" android:inset="16.7%" />
+    </monochrome>
+</adaptive-icon>

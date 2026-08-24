@@ -1,0 +1,150 @@
+.sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  /* Measured against true black content beneath — needs to be this dense */
+  background: rgba(0, 0, 0, 0.66);
+  animation: amb-fade var(--dur) var(--ease) both;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-height: 86dvh;
+  padding: var(--s3) var(--s5) calc(var(--s5) + var(--sab));
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  display: flex;
+  flex-direction: column;
+  animation: sheet-up var(--dur) var(--ease) both;
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(14%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* The drag zone. Claiming the gesture here keeps the WebView from turning a
+   downward pull into a page scroll. */
+.sheet-grab,
+.sheet-head {
+  touch-action: none;
+}
+
+.sheet-grab {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--hairline-strong);
+  margin: 0 auto var(--s3);
+  cursor: grab;
+}
+
+.sheet.is-dragging {
+  transition: none;
+  will-change: transform;
+}
+
+.sheet.is-dragging .sheet-grab {
+  cursor: grabbing;
+}
+
+/* Springs home, with a little overshoot */
+.sheet.is-settling {
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+/* Leaves accelerating, over a duration matched to the flick that sent it */
+.sheet.is-dismissing {
+  transition: transform var(--sheet-exit, 240ms) cubic-bezier(0.3, 0, 1, 1);
+}
+
+/* A sheet's own scrolling must not chain out to the page behind it */
+.sheet-body {
+  overscroll-behavior-y: contain;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.sheet-title {
+  font-size: var(--t-title);
+}
+
+.sheet-close {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-right: calc(var(--s2) * -1);
+  border-radius: var(--r-pill);
+  color: var(--text-muted);
+}
+
+.sheet-body {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sheet-foot {
+  display: flex;
+  gap: var(--s3);
+  margin-top: var(--s5);
+}
+
+.sheet-foot > * {
+  flex: 1;
+}
+
+@media (min-width: 900px) {
+  .sheet-layer {
+    align-items: center;
+  }
+
+  .sheet {
+    width: min(520px, 92vw);
+    border-radius: var(--r-xl);
+    padding-bottom: var(--s5);
+  }
+
+  /* No drag on the tablet dialog, so no handle promising one */
+  .sheet-grab {
+    display: none;
+  }
+
+  @keyframes sheet-up {
+    from { transform: scale(0.97); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+
+  /* Springs from the control pane on the right, where its trigger lives,
+     instead of taking over the whole screen from the centre. */
+  .sheet-layer.is-anchored {
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: var(--s6);
+  }
+
+  .sheet-layer.is-anchored .sheet {
+    width: min(380px, 34vw);
+    margin-top: var(--s7);
+    animation: sheet-pop var(--dur) var(--ease) both;
+  }
+
+  @keyframes sheet-pop {
+    from { transform: scale(0.94) translateY(-8px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+}

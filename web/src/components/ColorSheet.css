@@ -1,0 +1,9 @@
+.colorsheet-zone {
+  font-family: var(--font-display);
+  font-size: var(--t-caps);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: calc(var(--s3) * -1) 0 var(--s4);
+}

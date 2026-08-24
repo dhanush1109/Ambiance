@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <!-- Pre-12: the full-bleed splash drawable. -->
+        <item name="android:background">@drawable/splash</item>
+        <!-- Android 12+ ignores that and draws the system splash instead: the
+             adaptive icon on the theme's splash background. Left unset, that
+             background follows the system light/dark setting, so a phone in
+             light mode would put this pale neon outline on white and lose it.
+             The app is black everywhere; so is its launch. -->
+        <item name="windowSplashScreenBackground">@color/launcher_bg</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/launcher_bg</item>
+    </style>
+</resources>

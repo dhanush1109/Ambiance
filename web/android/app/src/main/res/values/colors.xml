@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ambiance is an OLED-black app whose logo is neon line-work. Every
+         surface behind that mark — adaptive icon, system splash, icon
+         backdrop — has to be black, or a pale blue outline lands on white and
+         all but disappears. -->
+    <color name="launcher_bg">#000000</color>
+</resources>

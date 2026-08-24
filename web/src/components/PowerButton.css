@@ -1,0 +1,82 @@
+.power {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 64px;
+  min-height: 64px;
+  padding: var(--s2);
+  /* Concentric with the dock — see ColorButton.css */
+  border-radius: calc(var(--r-xl) - var(--s4));
+  color: var(--text-muted);
+  transition:
+    color var(--dur) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.power-lg {
+  min-width: 84px;
+  min-height: 84px;
+}
+
+/* Lives on the glass dock — vibrancy fill for the off-state, not more glass */
+.power-ring {
+  position: absolute;
+  inset: 6px;
+  border-radius: calc(var(--r-xl) - var(--s4) - 6px);
+  border: 1.75px solid var(--hairline-strong);
+  background: var(--fill-2);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.power-glyph,
+.power-text {
+  position: relative;
+  z-index: 1;
+}
+
+.power-glyph {
+  display: grid;
+  place-items: center;
+  animation: amb-pop var(--dur-fast) var(--ease-spring);
+}
+
+.power-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* On: filled, haloed, tinted by the live light colour — this is the one
+   button that should feel like it switches the actual cabin glow on, so it
+   uses --light rather than the app's fixed indigo. */
+.power.is-on {
+  color: #000;
+}
+
+.power.is-on .power-ring {
+  background: var(--light);
+  border-color: transparent;
+  box-shadow:
+    0 0 0 4px var(--light-soft),
+    0 8px 28px -6px var(--light-glow);
+}
+
+.power:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.power:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.power.is-busy .power-ring {
+  animation: amb-breathe 1.2s var(--ease) infinite;
+}

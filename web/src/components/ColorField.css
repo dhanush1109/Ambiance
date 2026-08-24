@@ -1,0 +1,136 @@
+﻿.colorfield {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  width: 100%;
+}
+
+/* ---------------- presets ---------------- */
+
+.colorfield-presets {
+  display: flex;
+  gap: var(--s2);
+  justify-content: space-between;
+}
+
+/* Eight dots at a fixed 32px overflow a 320px screen, and a plain width with
+   the default flex-shrink squashed them into ellipses even at 360px. Shrink
+   both axes together instead, with a floor that still clears a 48px hit area. */
+.colorfield-preset {
+  position: relative;
+  flex: 0 1 32px;
+  min-width: 26px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  /* 48px touch target without a 48px dot */
+  margin: 8px 0;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.colorfield-preset::after {
+  content: '';
+  position: absolute;
+  /* keeps the hit area at 48px even when the dot shrinks to 26px */
+  inset: -11px;
+}
+
+@media (max-width: 349px) {
+  .colorfield-presets {
+    gap: var(--s1);
+  }
+}
+
+.colorfield-preset:active {
+  transform: scale(0.9);
+}
+
+/* Double ring so the marker stays visible on both pale and dark presets */
+.colorfield-preset.is-current {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 0 0 2px #000,
+    0 0 0 4px var(--text),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------- field ---------------- */
+
+.colorfield-pad {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  border-radius: var(--r-md);
+  cursor: crosshair;
+  touch-action: none;
+  overflow: hidden;
+  background:
+    linear-gradient(to top, #000 0%, transparent 55%, rgba(255, 255, 255, 0.92) 100%),
+    linear-gradient(to right, #808080 0%, hsl(var(--hue) 100% 50%) 100%);
+  /* Recessed, like a physical control panel */
+  box-shadow:
+    inset 0 2px 14px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.colorfield-thumb {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  /* Double ring keeps the handle visible over both light and dark regions;
+     the halo ties it to the live light colour */
+  border: 2.5px solid #fff;
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.55),
+    0 0 14px var(--light-glow),
+    0 3px 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.colorfield-hue {
+  position: relative;
+  height: 54px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  touch-action: none;
+  background: linear-gradient(
+    to right,
+    #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%
+  );
+}
+
+.colorfield-huethumb {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.55),
+    0 0 16px var(--light-glow),
+    0 3px 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.colorfield-value {
+  align-self: flex-end;
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.colorfield.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}

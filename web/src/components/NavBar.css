@@ -1,0 +1,144 @@
+.nav {
+  position: fixed;
+  z-index: 40;
+}
+
+.nav-list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* The sliding indicator. Transform-only, so it rides the compositor. */
+.nav-pill {
+  position: absolute;
+  pointer-events: none;
+  background: var(--accent-soft);
+  border-radius: var(--r-sm);
+  transition: transform 320ms var(--ease-spring);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  transition:
+    color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.nav-item.is-active {
+  color: var(--accent);
+}
+
+.nav-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  /* "Settings" must never wrap to a second line and shove the row taller */
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------- phone: bottom bar ---------------- */
+
+.nav-bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: var(--sab);
+  /* Landscape notch / curved edges: the tab row insets with the screen.
+     The pill translates by percentage of .nav-list, so it follows. */
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+
+.nav-bottom .nav-list {
+  height: var(--nav-h);
+}
+
+.nav-bottom .nav-item {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 48px;
+  border-radius: var(--r-md);
+}
+
+.nav-bottom .nav-list > li {
+  flex: 1;
+}
+
+.nav-bottom .nav-item {
+  position: relative;
+}
+
+.nav-bottom .nav-item > * {
+  position: relative;
+}
+
+/* Five equal tabs, so one tab-width per index step. The outer span does the
+   sliding; the inset keeps the visible pad narrower than a full tab. */
+.nav-bottom .nav-pill {
+  top: 9px;
+  left: 0;
+  width: calc(100% / 5);
+  height: calc(var(--nav-h) - 18px);
+  background: none;
+  transform: translateX(calc(var(--nav-i) * 100%));
+}
+
+.nav-bottom .nav-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0 calc(50% - 26px);
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+}
+
+/* ---------------- tablet: left rail ---------------- */
+
+.nav-rail {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--rail-w);
+  padding: calc(var(--s5) + var(--sat)) var(--s3) var(--s5);
+  border-right: 1px solid var(--hairline);
+}
+
+.nav-rail .nav-list {
+  flex-direction: column;
+  gap: var(--s2);
+  height: 100%;
+}
+
+/* Fixed height (not min-height) so the pill's translate maths stays exact */
+.nav-rail .nav-item {
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  height: 68px;
+  gap: 6px;
+  border-radius: var(--r-md);
+}
+
+.nav-rail .nav-pill {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  border-radius: var(--r-md);
+  /* 68px item + 8px gap */
+  transform: translateY(calc(var(--nav-i) * 76px));
+}
+
+.nav-rail .nav-label {
+  font-size: 12px;
+}

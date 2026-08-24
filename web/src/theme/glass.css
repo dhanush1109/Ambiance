@@ -1,0 +1,519 @@
+/* Ambiance — surfaces.
+
+   Apple's Liquid Glass rules (WWDC25), applied for real this time:
+     "Liquid Glass is the material of the NAVIGATION layer — bars, toolbars,
+      floating controls — never the content layer (tables, lists, rows)."
+     "Never glass on glass. Elements sitting ON glass don't get the material
+      again — style them with fills and vibrancy."
+     "Tint only primary actions — when every element is tinted, nothing
+      stands out."
+
+   Glass now covers every legitimate navigation/floating/transient surface —
+   the nav bar and rail, the control dock, sheets, the colour button, zone
+   chips, the status pill, the effects family switcher and search field,
+   toasts, banners, disclosures. Content rows (mood/effect/favourite cards,
+   settings rows) stay SOLID — that boundary is what keeps this looking like
+   Apple's own apps rather than glass soup.
+
+   Blurring flat black returns flat black. Every glass surface here is meant
+   to sit over components/AmbientBackdrop or the car's own glow — that is
+   what gives the material something to refract. */
+
+/* ---------------- glass primitives ---------------- */
+
+.glass-thin,
+.glass,
+.glass-thick {
+  position: relative;
+  isolation: isolate;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  /* A gradient border — brighter at the top — is the specular highlight that
+     sells this as a physical, light-bending surface rather than a blurred div. */
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  box-shadow:
+    inset 0 1px 0 0 var(--lens-top),
+    inset 0 -1px 0 0 var(--lens-inner),
+    inset 1px 0 0 0 var(--lens-edge),
+    inset -1px 0 0 0 var(--lens-edge);
+}
+
+.glass-thin {
+  background-image: linear-gradient(var(--glass-thin), var(--glass-thin)),
+    linear-gradient(180deg, var(--lens-top), transparent 40%, var(--lens-inner));
+}
+
+.glass {
+  background-image: linear-gradient(var(--glass), var(--glass)),
+    linear-gradient(180deg, var(--lens-top), transparent 40%, var(--lens-inner));
+}
+
+.glass-thick {
+  background-image: linear-gradient(var(--glass-thick), var(--glass-thick)),
+    linear-gradient(180deg, var(--lens-top), transparent 40%, var(--lens-inner));
+}
+
+/* Glass elements can't sample each other, so nearby glass that should read as
+   one family (a dock's swatch button beside its sliders) shares timing and
+   depth through this wrapper rather than actually blending — true shared
+   sampling isn't something CSS can do; consistent tokens is the honest
+   substitute. */
+.glass-group {
+  isolation: isolate;
+}
+
+/* ---------------- vibrancy (for content ON glass) ---------------- */
+
+.vibrant-fill-1 { background: var(--fill-1); }
+.vibrant-fill-2 { background: var(--fill-2); }
+.vibrant-fill-3 { background: var(--fill-3); }
+
+.vibrant-label { color: var(--vibrant-label); }
+.vibrant-secondary { color: var(--vibrant-secondary); }
+.vibrant-tertiary { color: var(--vibrant-tertiary); }
+
+/* ---------------- shape system ---------------- */
+
+/* Radius = half the element's own height — recompute per element via style,
+   this just documents the convention and covers the common 48px control. */
+.shape-capsule {
+  border-radius: var(--r-pill);
+}
+
+/* Inner radius = parent radius − padding, kept concentric with its container */
+.shape-concentric {
+  border-radius: calc(var(--r-lg) - var(--s3));
+}
+
+/* ---------------- named glass surfaces (navigation layer) ---------------- */
+
+.glass-nav,
+.glass-dock,
+.glass-sheet {
+  background: var(--glass-thick);
+  background-image: linear-gradient(var(--glass-thick), var(--glass-thick)),
+    linear-gradient(180deg, var(--lens-top), transparent 40%, var(--lens-inner));
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  box-shadow:
+    inset 0 1px 0 0 var(--lens-top),
+    inset 0 -1px 0 0 var(--lens-inner),
+    inset 1px 0 0 0 var(--lens-edge),
+    inset -1px 0 0 0 var(--lens-edge);
+}
+
+.glass-nav {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  box-shadow: inset 0 1px 0 0 var(--lens-top);
+}
+
+.glass-dock {
+  border-radius: var(--r-xl);
+  box-shadow:
+    inset 0 1px 0 0 var(--lens-top),
+    inset 0 -1px 0 0 var(--lens-inner),
+    0 18px 48px -12px rgba(0, 0, 0, 0.9);
+}
+
+.glass-sheet {
+  border-radius: var(--r-xl);
+  box-shadow:
+    inset 0 1px 0 0 var(--lens-top),
+    inset 0 -1px 0 0 var(--lens-inner),
+    0 32px 64px -16px rgba(0, 0, 0, 0.95);
+}
+
+/* ---------------- content layer (solid — never glass) ---------------- */
+
+.card,
+.card-raise {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  /* A restrained echo of the glass lens — a top highlight, no blur — is what
+     keeps a solid card reading as "material" beside its glass neighbours. */
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.card-raise {
+  background: var(--surface-2);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+    0 12px 32px -16px rgba(0, 0, 0, 0.9);
+}
+
+.card-interactive {
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.card-interactive:active {
+  transform: scale(0.97);
+  filter: brightness(1.07);
+  background: var(--surface-2);
+}
+
+/* One-shot light sweep across a card when its setting is applied.
+   Remount with a changing key to replay. */
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.card-sheen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.13),
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: amb-sheen var(--dur-sheen) var(--ease) 1;
+}
+
+.card-active {
+  border-color: var(--accent);
+  background: linear-gradient(var(--accent-soft), var(--accent-soft)), var(--surface);
+}
+
+.hairline {
+  border: 0;
+  height: 1px;
+  background: var(--hairline);
+}
+
+/* ---------------- primitives ---------------- */
+
+.pressable {
+  transition:
+    transform var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.pressable:active {
+  transform: scale(0.97);
+  filter: brightness(1.07);
+  opacity: 0.95;
+}
+
+/* Never remove focus rings — keyboard users need them */
+:where(button, a, input, [tabindex]):focus-visible,
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Chips are small floating controls — navigation-layer glass, per the rule */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 48px;
+  padding: 0 var(--s4);
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: var(--glass-thin);
+  background-image: linear-gradient(var(--glass-thin), var(--glass-thin)),
+    linear-gradient(180deg, var(--lens-top), transparent 60%, var(--lens-inner));
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  color: var(--vibrant-secondary);
+  font-size: var(--t-label);
+  font-weight: 500;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.chip[aria-pressed="true"],
+.chip.is-active {
+  background: var(--accent-soft);
+  background-image: none;
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* A frosted fill rather than a dark block — reads correctly whether it sits
+   on a solid card or on glass, which is why it's used in both places. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 48px;
+  padding: 0 var(--s5);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--fill-2);
+  color: var(--text);
+  font-weight: 500;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+  background: var(--fill-3);
+}
+
+/* Tint only the primary action — if everything is tinted, nothing stands out */
+.btn-primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.btn-danger {
+  color: var(--danger);
+  border-color: rgba(255, 105, 97, 0.35);
+}
+
+.btn:disabled,
+.chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------------- screen scaffolding ---------------- */
+
+/* max() so a phone with no notch is unchanged, while a landscape notch or
+   curved edge never clips content against the screen edge. */
+.screen {
+  min-height: 100dvh;
+  padding: calc(var(--s4) + var(--sat) + 22px)
+    max(var(--s4), var(--sar))
+    calc(var(--nav-h) + var(--sab) + var(--s6))
+    max(var(--s4), var(--sal));
+}
+
+/* iOS large title: heavy and tightly tracked, so it anchors the screen rather
+   than floating above it. Optical sizing means big text wants less spacing,
+   not the same spacing scaled up. */
+.screen-title {
+  font-size: clamp(28px, 6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--s1);
+}
+
+.screen-sub {
+  color: var(--text-muted);
+  font-size: var(--t-label);
+  line-height: 1.5;
+  margin-bottom: var(--s5);
+}
+
+/* The caption that belongs BELOW an inset group, not inside it. iOS puts
+   explanatory text outside the grouped card — keeping it inside makes the
+   card look like it contains two unrelated things. */
+.section-footer {
+  padding: 6px var(--s4) 0;
+  font-size: var(--t-label);
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
+
+.section {
+  margin-bottom: var(--s6);
+}
+
+.section-head {
+  font-family: var(--font-display);
+  font-size: var(--t-caps);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--s3);
+}
+
+/* ---------------- keyframes ---------------- */
+
+@keyframes amb-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+
+@keyframes amb-shimmer {
+  0% { transform: translateX(-60%); }
+  100% { transform: translateX(160%); }
+}
+
+@keyframes amb-rise {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes amb-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes amb-breathe {
+  0% { opacity: 0.75; }
+  50% { opacity: 1; }
+  100% { opacity: 0.75; }
+}
+
+@keyframes amb-sheen {
+  to { transform: translateX(240%); }
+}
+
+/* Value readouts change with a small rise rather than a hard swap */
+@keyframes amb-tick {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Screen entering on a tab change */
+@keyframes amb-screen-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* A glyph replacing another glyph — the icon equivalent of tick-swap, for
+   state pairs like power on/off. */
+@keyframes amb-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+.anim-rise {
+  animation: amb-rise var(--dur-slow) var(--ease-spring) both;
+}
+
+.anim-fade {
+  animation: amb-fade var(--dur) var(--ease) both;
+}
+
+.tick-swap {
+  display: inline-block;
+  animation: amb-tick 180ms var(--ease);
+}
+
+/* ---------------- fallbacks ---------------- */
+
+/* Mid-range tablets, or user preference: drop every blur to a solid surface */
+body[data-reduce-glass="1"] .glass-nav,
+body[data-reduce-glass="1"] .glass-dock,
+body[data-reduce-glass="1"] .glass-sheet,
+body[data-reduce-glass="1"] .glass-thin,
+body[data-reduce-glass="1"] .glass,
+body[data-reduce-glass="1"] .glass-thick,
+body[data-reduce-glass="1"] .chip {
+  background: var(--glass-thick);
+  background-image: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Zeroing delay matters as much as duration: the cabin lights fade in on an
+   800ms delay behind the intro line-draw, and a 1ms animation that still waits
+   800ms would leave the car dark for most of a second. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body[data-reduce-motion="1"] *,
+body[data-reduce-motion="1"] *::before,
+body[data-reduce-motion="1"] *::after {
+  animation-duration: 1ms !important;
+  animation-delay: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  transition-delay: 0ms !important;
+}
+
+/* Reduced transparency: Apple's own accessibility escape hatch for glass,
+   distinct from the app's manual "reduce blur" setting. Every glass surface
+   becomes an opaque solid. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-nav,
+  .glass-dock,
+  .glass-sheet,
+  .glass-thin,
+  .glass,
+  .glass-thick,
+  .chip {
+    background: var(--surface-2);
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Increased contrast: glass becomes opaque black/white with a hard border,
+   per the skill ("glass elements black/white with a contrasting border") */
+@media (prefers-contrast: more) {
+  .glass-nav,
+  .glass-dock,
+  .glass-sheet,
+  .glass-thin,
+  .glass,
+  .glass-thick,
+  .chip {
+    background: #000;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-color: var(--text);
+  }
+
+  .card,
+  .card-raise {
+    border-color: var(--hairline-strong);
+  }
+}

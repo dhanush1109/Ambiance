@@ -1,0 +1,45 @@
+/* This button lives on the glass dock, so it is a VIBRANCY fill, not more
+   glass — "never glass on glass". */
+.colorbtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  /* Concentric with the dock: parent radius minus the dock's padding, so the
+     curves stay parallel instead of merely similar. */
+  border-radius: calc(var(--r-xl) - var(--s4));
+  border: 1.75px solid var(--hairline-strong);
+  background: var(--fill-2);
+  flex: none;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.colorbtn-swatch {
+  position: absolute;
+  inset: 6px;
+  /* concentric again, one level in */
+  border-radius: calc(var(--r-xl) - var(--s4) - 6px);
+  background: var(--c);
+}
+
+/* The palette glyph rides on top of the swatch — needs to read on any hue,
+   so it is stroked in near-black with a soft light halo rather than relying
+   on currentColor contrast against an arbitrary background. */
+.colorbtn-icon {
+  position: relative;
+  color: rgba(0, 0, 0, 0.55);
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.35));
+}
+
+.colorbtn.is-open {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.colorbtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

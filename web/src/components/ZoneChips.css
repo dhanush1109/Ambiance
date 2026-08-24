@@ -1,0 +1,33 @@
+.zonechips {
+  display: flex;
+  gap: var(--s2);
+  width: 100%;
+}
+
+.zonechip {
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  padding: var(--s2) var(--s2);
+  border-radius: var(--r-md);
+  min-width: 0;
+}
+
+.zonechip-name {
+  font-size: var(--t-label);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.zonechip-count {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.zonechip.is-active .zonechip-count {
+  color: var(--accent);
+}

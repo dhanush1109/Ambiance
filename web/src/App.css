@@ -1,0 +1,36 @@
+.app {
+  min-height: 100dvh;
+}
+
+.app-link {
+  position: fixed;
+  top: calc(var(--sat) + 6px);
+  right: max(8px, var(--sar));
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.app-main {
+  min-height: 100dvh;
+}
+
+.app-screen[hidden] {
+  display: none;
+}
+
+/* Coming back from display:none restarts CSS animations, so the tab change
+   crossfades with no JavaScript and no remounting. */
+.app-screen:not([hidden]) {
+  animation: amb-screen-in var(--dur) var(--ease) both;
+}
+
+/* Tablet: content sits beside the rail */
+.app-rail .app-main {
+  padding-left: var(--rail-w);
+}
+
+.app-rail .home {
+  padding-left: var(--s6);
+  padding-right: var(--s6);
+  padding-bottom: var(--s6);
+}

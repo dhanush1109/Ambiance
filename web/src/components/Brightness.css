@@ -1,0 +1,54 @@
+.brightness {
+  width: 100%;
+}
+
+.brightness-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--s2);
+}
+
+.brightness-value {
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  color: var(--text-muted);
+}
+
+.brightness-track {
+  display: flex;
+  gap: 4px;
+  /* 48px hit area, even though the bars themselves are much slimmer —
+     the padding is what keeps the target honest while the control stays
+     visually light. */
+  height: 48px;
+  padding: 15px 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* Brightness always lives on glass (the dock or the running-animation
+   banner) — a vibrancy fill for the unlit track, not another solid surface */
+.brightness-seg {
+  flex: 1;
+  border-radius: var(--r-pill);
+  background: var(--fill-2);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+/* Filling cascades left-to-right; emptying is instant, so dragging the level
+   down never feels like the control is lagging behind your thumb. Lit in
+   --light, not the app's indigo — this bar is a reading of the actual cabin
+   brightness, not a piece of UI chrome. */
+.brightness-seg.is-lit {
+  background: var(--light);
+  box-shadow: 0 0 12px -1px var(--light-glow);
+  transition-delay: calc(var(--i) * 30ms);
+}
+
+.brightness-track.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}

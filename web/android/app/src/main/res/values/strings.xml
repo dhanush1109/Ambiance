@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Ambiance</string>
+    <string name="title_activity_main">Ambiance</string>
+    <string name="package_name">com.ambiance.hycross</string>
+    <string name="custom_url_scheme">com.ambiance.hycross</string>
+</resources>
