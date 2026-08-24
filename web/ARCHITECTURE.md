@@ -236,19 +236,37 @@ AmbientBackdrop.jsx  <AmbientBackdrop />  no props. Mounted once in App.jsx, fir
                      every glass surface in the app refracts. Freezes under reduced motion, hidden
                      under reduceGlass (nothing left to sample it).
 LaunchOverlay.jsx <LaunchOverlay />  no props. LAST child of App.jsx, z-index 100 (over toast at 90
-                     and sheet at 80). Decorative: aria-hidden + pointer-events:none, so Home is live
-                     and tappable from the first frame and a screen reader never meets it.
-                     1.2s: bloom 0ms, sweep 300ms, reveal 780ms, unmount 1200ms. The reveal starts
-                     while CarHero's outline is still drawing, so the logo's line-work hands off to
-                     the car's rather than cutting to a finished picture.
+                     and sheet at 80). TWO PATHS through one overlay; JS owns the timeline, CSS owns
+                     the look, so the exit is one class (.is-leaving) whichever path ran. `data-mode`
+                     carries the path — NOT a class: a `launch-video` modifier on the wrapper would
+                     collide with the .launch-video class on the <video> and apply its absolute
+                     positioning to the whole sheet.
+                     VIDEO (default): src/assets/intro.mp4 at playbackRate 1.25 — 10.0s becomes 8.0s
+                     — then a 420ms dissolve. object-fit CONTAIN, not cover: the frame is 1280x720
+                     against a ~9:19.5 phone, and cover would crop the car's flanks off. The video's
+                     background is pure black on a pure black sheet, so the letterbox bars cost
+                     nothing. Muted, playsInline, autoPlay; play() is also called explicitly because
+                     that is what surfaces a rejection to react to. playbackRate is set on BOTH
+                     loadedmetadata and playing — an engine that has not parsed metadata ignores it,
+                     and some reset to 1x when decoding starts.
+                     FALLBACK: the CSS logo bloom, 780ms then the same dissolve. Used on error, on a
+                     refused/throwing play(), or when the video loads but never advances.
+                     8s is far too long to hold someone who wants to change a colour, so the video
+                     path is tappable ANYWHERE to skip (a full-bleed <button> with a real name and a
+                     Skip pill held back 1400ms) and is NOT pointer-events:none. The 780ms bloom
+                     stays decorative — .is-decorative, aria-hidden, taps pass through.
+                     Watchdog samples currentTime every 500ms: still 0 after 2500ms -> fallback;
+                     frozen 3000ms mid-play -> hand off. It does not run while document.hidden,
+                     because the WebView pauses video in the background and that is not a stall;
+                     visibilitychange resumes play and re-applies the rate.
+                     HARD_CAP 12000ms unmounts unconditionally — above 8000+2500+420, so it can
+                     never truncate the intro, and it is the one guarantee that the app is never
+                     left behind a black sheet.
                      Every keyframe is opacity/transform only — a launch runs on the slowest frames
                      the app ever sees, so the neon bloom is a second pre-blurred copy cross-faded
                      underneath (compositor) instead of an animated filter (paint).
-                     Unmounts on its OWN animationend (children bubble; they are filtered out) with a
-                     2200ms safety timeout — a dropped event must never leave a black sheet.
                      Renders null under either reduced-motion signal, decided once at mount so a
                      mid-flight settings change cannot cut the fade to a hard edge.
-                     Art: src/assets/logo-launch.jpg, 900px/124KB. The 5.6MB original never ships.
 Card.jsx        <Card raise interactive as className>   SOLID surface, not glass
 CarHero.jsx     see section 2
 ColorField.jsx  <ColorField hex onChange onCommit />    hue strip + sat/val pad, pointer events, 8 presets
@@ -341,8 +359,28 @@ resources/icon.png             1024² logo at 82%, black    legacy pre-Android-8
 resources/icon-foreground.png  1024² logo at 78%, alpha    adaptive foreground
 resources/icon-background.png  1024² solid black           generated but unused (see below)
 resources/splash.png           2732² logo at 55%, black    pre-Android-12 splash
-src/assets/logo-launch.jpg     900px, 124KB                LaunchOverlay art
+src/assets/logo-launch.jpg     900px, 124KB                LaunchOverlay fallback art
+src/assets/intro.mp4           1280x720, 10.0s, 1.57MB     LaunchOverlay video (see below)
 ```
+
+`intro.mp4` is derived from the owner's `Logo/Intro.mp4` (2.61 MB, H.264 High + AAC stereo, 24 fps).
+Two changes, both deliberate:
+
+- **Audio stripped.** The intro is muted — an app that plays sound on launch while the phone is paired
+  to the car's head unit is wrong, and 1.25x playback would pitch it anyway. `launch.test.jsx` asserts
+  the shipped file contains no `mp4a` sample entry.
+- **Re-encoded at CRF 20**, 2.39 MB → 1.57 MB. Verified visually lossless before accepting: SSIM
+  0.9950, PSNR 48.1 dB average / 45.6 dB minimum, and a 2x nearest-neighbour crop of the grille
+  glow — the worst case for banding — is indistinguishable from the source.
+
+```powershell
+# from web/, with ffmpeg-static installed as a devDependency
+node_modules\ffmpeg-static\ffmpeg.exe -y -i "..\Logo\Intro.mp4" `
+  -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -an -movflags +faststart src\assets\intro.mp4
+```
+
+`+faststart` keeps `moov` ahead of `mdat` so the first frame decodes without reading the whole file.
+Android's aapt stores `.mp4` uncompressed, so the APK grows by the file's full size.
 
 Regenerate with `npx @capacitor/assets generate --android --iconBackgroundColor '#000000'
 --splashBackgroundColor '#000000' --splashBackgroundColorDark '#000000'`. **Three things must then be

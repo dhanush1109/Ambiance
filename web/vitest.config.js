@@ -9,6 +9,9 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    // Closes jsdom's missing-media-stack gap. Guarded inside the file, so the
+    // pure protocol suites load it harmlessly.
+    setupFiles: ['./src/test/setup.js'],
     include: ['src/**/*.{test,spec}.{js,jsx}'],
     globals: false,
     restoreMocks: true,
