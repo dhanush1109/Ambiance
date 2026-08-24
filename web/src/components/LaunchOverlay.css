@@ -1,15 +1,16 @@
-/* The launch sequence. Four phases over 1.2s, all of them compositor-only —
-   opacity and transform, never a filter or a blur radius, so the animation
-   holds 60fps on the first frames of a cold start when the JS engine is still
-   warming up.
+/* The launch sequence.
 
-     0ms    bloom      logo settles in from 0.94 while its glow rises
-   300ms    sweep      one pass of light across the artwork
-   780ms    reveal     sheet fades, logo opens outward into the app
-  1200ms    done       component unmounts
+   Two paths through the same overlay. JS owns the timeline, CSS owns the look —
+   so the exit is one class (.is-leaving) regardless of which path ran, and the
+   sheet can never be left mid-fade by a path that ended differently.
 
-   Home is live and interactive underneath from the very first frame — this
-   layer never takes a pointer event. */
+   VIDEO (default) — Intro.mp4 at 1.25x, 8.0s, then a 420ms dissolve into Home.
+   FALLBACK        — the CSS logo bloom, 780ms, then the same dissolve. Used
+                     whenever the video errors, is refused, or never starts.
+
+   Every animated property here is opacity or transform. A launch runs on the
+   slowest frames the app will ever see, so the neon bloom is a second
+   pre-blurred copy cross-faded underneath rather than an animated filter. */
 
 .launch {
   position: fixed;
@@ -18,9 +19,87 @@
   display: grid;
   place-items: center;
   background: var(--bg, #000);
-  pointer-events: none;
-  animation: launch-out var(--dur-slow) var(--ease) 780ms forwards;
 }
+
+/* The bloom path is 780ms of decoration and must never intercept a tap — Home
+   is live underneath from the first frame. The video path is 8s and offers the
+   skip button instead. */
+.launch.is-decorative {
+  pointer-events: none;
+}
+
+.launch.is-leaving {
+  animation: launch-out var(--dur-slow) var(--ease) forwards;
+}
+
+/* ---------------- video path ---------------- */
+
+/* contain, not cover: the video is 1280x720 against a ~9:19.5 phone, so cover
+   would crop the car's flanks away. Its background is pure black on a pure
+   black overlay, which makes the letterbox bars invisible — the only cost of
+   contain here is nothing at all. */
+.launch-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--bg, #000);
+  /* the flare at the climax is bright; keep it from banding on OLED */
+  will-change: opacity;
+}
+
+/* Full-bleed hit area, so a tap anywhere gets past the intro. */
+.launch-skip {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Held back for a beat: the opening moment should not have a button on it. */
+.launch-skip-pill {
+  position: absolute;
+  right: max(var(--s5), env(safe-area-inset-right));
+  bottom: max(var(--s7), env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  min-width: 68px;
+  min-height: 40px;
+  padding: 0 var(--s4);
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  animation: launch-skip-in 320ms var(--ease) 1400ms both;
+}
+
+.launch-skip:active .launch-skip-pill {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.launch-skip:focus-visible .launch-skip-pill {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@keyframes launch-skip-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------------- fallback path: the logo bloom ---------------- */
 
 .launch-stage {
   position: relative;
@@ -30,7 +109,12 @@
   /* clips the sweep to the artwork. The logo's own margin is black, so the
      bloom's blur is black out here too and loses nothing to the clip. */
   overflow: hidden;
-  animation: launch-open var(--dur-slow) var(--ease) 780ms forwards;
+}
+
+/* Opens outward as the sheet goes, so the logo reads as expanding into the app
+   rather than being switched off. */
+.launch.is-leaving .launch-stage {
+  animation: launch-open var(--dur-slow) var(--ease) forwards;
 }
 
 .launch-logo,
@@ -90,8 +174,6 @@
   to { transform: translate3d(320%, 0, 0); }
 }
 
-/* Opens outward as it goes, so the logo reads as expanding into the app rather
-   than being switched off */
 @keyframes launch-open {
   to { transform: scale(1.08); }
 }
@@ -100,15 +182,15 @@
   to { opacity: 0; }
 }
 
-/* The component returns null under either reduced-motion signal, so these
-   never normally render. Kept as a floor: if the overlay somehow mounts, it
+/* The component returns null under either reduced-motion signal, so none of
+   this normally renders. Kept as a floor: if the overlay somehow mounts, it
    must appear and leave without motion rather than not leave at all. */
 @media (prefers-reduced-motion: reduce) {
-  .launch { animation: launch-out 1ms linear 200ms forwards; }
-  .launch-stage,
+  .launch.is-leaving { animation: launch-out 1ms linear forwards; }
+  .launch.is-leaving .launch-stage,
   .launch-logo,
   .launch-bloom,
-  .launch-sweep { animation: none; }
+  .launch-skip-pill { animation: none; }
   .launch-bloom { opacity: 0.4; }
   .launch-sweep { display: none; }
 }
