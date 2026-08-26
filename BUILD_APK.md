@@ -106,6 +106,38 @@ targetSdkVersion = 35
 
 ---
 
+## 2a. The intro video (already done — only if you replace Intro.mp4)
+
+The app's opening is `Logo/Intro.mp4`, played at 2x. The shipped copy at
+`web/src/assets/intro.mp4` is a **stream copy** — the original encoded video, bit
+for bit, no re-encode and so no generation loss (`ffmpeg` reports SSIM 1.000000
+and infinite PSNR against the source, true of any stream copy regardless of what
+the source looks like). Only the AAC track is dropped, because the intro is
+muted by design. Current master: 960x720, 10.006s, H.264 + AAC, faststart.
+
+```powershell
+cd "c:\Users\ADMIN\Desktop\Ambient Light\web"
+npm install -D ffmpeg-static
+npm approve-scripts ffmpeg-static
+node_modules\ffmpeg-static\ffmpeg.exe -y -i "..\Logo\Intro.mp4" `
+  -c:v copy -an -movflags +faststart src\assets\intro.mp4
+```
+
+`-c:v copy` is the point — do **not** substitute `libx264`. `-an` drops the audio,
+`+faststart` puts `moov` before `mdat` so the first frame decodes without reading
+the whole file.
+
+If you swap in a video of a different length, check `HARD_CAP` in
+`web/src/components/LaunchOverlay.jsx`: it must stay above
+`duration / 2 + 2500 + 420` ms or it will cut the intro off. A test asserts
+exactly that, so `npx vitest run` will tell you.
+
+Android's aapt stores `.mp4` uncompressed, so the APK grows by the file's size.
+**The APK is deliberately heavy — every asset is lossless.** See the quality
+policy in `web/ARCHITECTURE.md` §9a before optimising anything for size.
+
+---
+
 ## 2b. Icons and splash (already done — only if you change the artwork)
 
 The icon and splash are built from `Logo/Logo.png`, the neon Hycross front end.
@@ -131,8 +163,10 @@ exist is documented in `web/ARCHITECTURE.md` §9a:
    background instead of the inset image, plus the `<monochrome>` layer for
    Android 13+ themed icons.
 2. `res/mipmap-*/ic_launcher_monochrome.png` — six densities, not generated at all.
-3. Splash recompression to a 256-colour palette: **8.46 MB → 2.53 MB.** Skipping
-   this adds ~6 MB to every APK you build.
+
+Do **not** recompress the generated splashes. They were once palette-quantised
+from 8.46 MB to 2.53 MB; that was reverted because quantising a neon gradient
+invites banding. Leave them full 24-bit.
 
 Then check your work before shipping:
 

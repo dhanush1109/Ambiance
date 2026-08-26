@@ -31,6 +31,27 @@
   to { transform: none; opacity: 1; }
 }
 
+/* Closing. Every way out of a sheet except the flick used to unmount on the
+   spot; this is that missing half. It leaves accelerating, the way the
+   flick-dismiss does, rather than mirroring the soft entrance. */
+/* A sheet on its way out must not swallow the tap meant for what is behind it */
+.sheet-layer.is-leaving {
+  pointer-events: none;
+}
+
+.sheet-layer.is-leaving .sheet {
+  animation: sheet-down var(--dur) cubic-bezier(0.3, 0, 1, 1) both;
+}
+
+.sheet-layer.is-leaving .sheet-scrim {
+  animation: amb-fade var(--dur) var(--ease) reverse both;
+}
+
+@keyframes sheet-down {
+  from { transform: none; opacity: 1; }
+  to { transform: translateY(14%); opacity: 0; }
+}
+
 /* The drag zone. Claiming the gesture here keeps the WebView from turning a
    downward pull into a page scroll. */
 .sheet-grab,
@@ -129,6 +150,12 @@
     to { transform: none; opacity: 1; }
   }
 
+  /* A centred dialog recedes rather than dropping */
+  @keyframes sheet-down {
+    from { transform: none; opacity: 1; }
+    to { transform: scale(0.97); opacity: 0; }
+  }
+
   /* Springs from the control pane on the right, where its trigger lives,
      instead of taking over the whole screen from the centre. */
   .sheet-layer.is-anchored {
@@ -146,5 +173,15 @@
   @keyframes sheet-pop {
     from { transform: scale(0.94) translateY(-8px); opacity: 0; }
     to { transform: none; opacity: 1; }
+  }
+
+  /* Back toward the control that opened it */
+  .sheet-layer.is-anchored.is-leaving .sheet {
+    animation: sheet-unpop var(--dur) var(--ease) both;
+  }
+
+  @keyframes sheet-unpop {
+    from { transform: none; opacity: 1; }
+    to { transform: scale(0.94) translateY(-8px); opacity: 0; }
   }
 }

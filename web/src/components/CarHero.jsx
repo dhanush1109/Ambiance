@@ -8,8 +8,12 @@ import {
   ZONE_CAPTION,
 } from '../data/pieces'
 import { useConnectionStore } from '../state/connectionStore'
+import { useLaunchStore } from '../state/launchStore'
 import { haptics } from '../services/haptics'
 import './CarHero.css'
+
+/** Matches --dur-draw. A floor so a missing animationend cannot leave the tracer on. */
+const DRAW_MS = 1200
 
 /**
  * The landing page's centrepiece: your car from above, its four doors, lit in
@@ -46,9 +50,19 @@ export default function CarHero({
     [],
   )
 
-  // The car draws itself once, on first mount. Screens stay mounted for the
-  // life of the app, so this is genuinely once per launch.
-  const [intro, setIntro] = useState(true)
+  // The car draws itself once per launch — but not until the intro overlay
+  // has released the gate, so the SVG tracer starts while the video's last
+  // flare is still on screen. Default-open means reduced-motion (no overlay)
+  // still traces immediately.
+  const gate = useLaunchStore((s) => s.gate)
+  const [intro, setIntro] = useState(false)
+
+  useEffect(() => {
+    if (gate === 'held') return undefined
+    setIntro(true)
+    const timer = setTimeout(() => setIntro(false), DRAW_MS)
+    return () => clearTimeout(timer)
+  }, [gate])
 
   // Connecting is the rarest event in the app, so it gets the biggest moment:
   // a single light sweep down the length of the car.

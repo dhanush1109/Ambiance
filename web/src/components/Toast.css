@@ -38,6 +38,22 @@
   animation: toast-drop var(--dur) var(--ease) both;
 }
 
+/* Leaves back up the way it came, a little quicker than it arrived */
+.toast.is-leaving {
+  animation: toast-lift var(--dur) var(--ease) both;
+}
+
+@keyframes toast-lift {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
 /* Enters downward, matching where it comes from */
 @keyframes toast-drop {
   from {

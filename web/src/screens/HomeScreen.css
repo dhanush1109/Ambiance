@@ -38,6 +38,7 @@
 /* ---------------- connect prompt ---------------- */
 
 .home-connect {
+  animation: amb-rise var(--dur) var(--ease) both;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--s3) var(--s4);
@@ -70,6 +71,7 @@
 
 /* Transient and floating over the car while an animation runs — glass */
 .home-banner {
+  animation: amb-rise var(--dur) var(--ease) both;
   display: flex;
   flex-direction: column;
   gap: var(--s3);
@@ -162,17 +164,15 @@
   line-height: 1.5;
 }
 
+/* Six moods wrap to two rows of three rather than scrolling sideways. A
+   horizontal scroller hid two of them behind an invisible edge — 6x84px needs
+   544px against a 358px phone — and a swipe is the wrong gesture for a set
+   small enough to show all at once. */
 .home-quick-row {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--s2);
-  overflow-x: auto;
   padding-bottom: var(--s1);
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
-}
-
-.home-quick-row::-webkit-scrollbar {
-  display: none;
 }
 
 /* Floating quick-action shortcuts on the plain screen background — glass */
@@ -181,8 +181,9 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s2);
+  /* Three across, whatever the width. The row wraps to a second line. */
   flex: none;
-  width: 84px;
+  width: calc(33.333% - var(--s2) * 2 / 3);
   min-height: 48px;
   padding: var(--s2);
   border-radius: var(--r-md);
@@ -190,7 +191,6 @@
   background: var(--glass-thin);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  scroll-snap-align: start;
   transition:
     border-color var(--dur-fast) var(--ease),
     transform var(--dur-fast) var(--ease);
@@ -251,14 +251,8 @@
   gap: var(--s5);
 }
 
-.home-tablet .home-quick-row {
-  flex-wrap: wrap;
-  overflow: visible;
-}
-
-.home-tablet .home-quickchip {
-  width: calc(33.333% - var(--s2));
-}
+/* The phone already wraps three-up; the tablet pane is narrow enough that the
+   same three-up rhythm is right there too, so nothing to override. */
 
 /* ---------------- phone in landscape ---------------- */
 

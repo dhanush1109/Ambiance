@@ -7,15 +7,25 @@ import './ZoneChips.css'
  * counts so the split is never a mystery.
  */
 export default function ZoneChips({ value, onChange, disabled = false }) {
+  // Drives the sliding selection pad. Clamped so an unrecognised zone leaves
+  // the pad on the first chip rather than off the end of the row.
+  const index = Math.max(0, ZONES.findIndex((z) => z.id === value))
+
   return (
-    <div className="zonechips" role="group" aria-label="Light zone">
+    <div
+      className="zonechips"
+      role="group"
+      aria-label="Light zone"
+      style={{ '--zone-i': index }}
+    >
+      <span className="zonechip-pill" aria-hidden="true" />
       {ZONES.map((z) => {
         const active = value === z.id
         return (
           <button
             key={z.id}
             type="button"
-            className={`chip zonechip${active ? ' is-active' : ''}`}
+            className={`chip zonechip pressable${active ? ' is-active' : ''}`}
             aria-pressed={active}
             disabled={disabled}
             onClick={() => {

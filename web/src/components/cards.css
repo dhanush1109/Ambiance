@@ -58,6 +58,7 @@
 .moodcard-check {
   color: var(--accent);
   flex: none;
+  animation: amb-pop var(--dur-fast) var(--ease-spring) both;
 }
 
 .moodcard-sub {
@@ -183,6 +184,7 @@ body[data-reduce-motion='1'] .effectcard-strip {
   padding: 0;
   color: #fff;
   background: var(--accent);
+  animation: amb-pop var(--dur-fast) var(--ease-spring) both;
 }
 
 /* ---------------- favourite ---------------- */

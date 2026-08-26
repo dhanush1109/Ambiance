@@ -54,8 +54,15 @@ export default function FavoritesScreen() {
       ) : (
         <div className="fav-list">
           {items.map((f, i) => (
-            <FavoriteCard
+            // The wrapper carries the entrance so the card keeps its own
+            // layout box; the stagger reads as a list settling rather than
+            // everything arriving at once.
+            <div
               key={f.id}
+              className="anim-rise fav-row"
+              style={{ animationDelay: `${Math.min(i, 8) * 30}ms` }}
+            >
+            <FavoriteCard
               fav={f}
               disabled={!connected}
               isFirst={i === 0}
@@ -72,6 +79,7 @@ export default function FavoritesScreen() {
               onRemove={(fav) => setConfirming(fav)}
               onMove={move}
             />
+            </div>
           ))}
         </div>
       )}

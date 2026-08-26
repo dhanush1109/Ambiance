@@ -20,6 +20,12 @@
   gap: var(--s2);
 }
 
+/* The entrance wrapper must not become a layout box of its own */
+.fav-row {
+  display: flex;
+  flex-direction: column;
+}
+
 .empty {
   display: flex;
   flex-direction: column;
@@ -202,6 +208,10 @@
   font-weight: 500;
 }
 
+.disclosure .icon {
+  transition: transform var(--dur) var(--ease);
+}
+
 .rot-90 {
   transform: rotate(-90deg);
 }
@@ -209,6 +219,7 @@
 /* A revealed diagnostic panel — floats above the section rather than being
    permanent content, so it earns glass rather than a solid card. */
 .advanced {
+  animation: amb-rise var(--dur) var(--ease) both;
   padding: var(--s4);
   margin-top: var(--s2);
   border-radius: var(--r-lg);
@@ -238,6 +249,7 @@
 /* Vibrancy fill, not another solid block — this row sits on the glass
    advanced panel above ("never glass on glass") */
 .devrow {
+  animation: amb-rise var(--dur) var(--ease) both;
   display: flex;
   align-items: center;
   justify-content: space-between;

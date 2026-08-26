@@ -14,7 +14,10 @@
   color: var(--vibrant-secondary);
   font-size: var(--t-label);
   font-weight: 500;
-  transition: background-color var(--dur-fast) var(--ease);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
 }
 
 button.statuspill {

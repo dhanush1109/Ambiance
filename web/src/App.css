@@ -18,8 +18,12 @@
   display: none;
 }
 
-/* Coming back from display:none restarts CSS animations, so the tab change
-   crossfades with no JavaScript and no remounting. */
+/* Coming back from display:none restarts CSS animations, so the incoming tab
+   animates in with no JavaScript and no remounting.
+   The outgoing screen is cut, not faded, and that is deliberate: iOS cuts its
+   own tab changes too, and a true crossfade would need both screens
+   absolutely positioned and overlapping — which would break the two
+   position:sticky elements inside them for the sake of 240ms nobody looks at. */
 .app-screen:not([hidden]) {
   animation: amb-screen-in var(--dur) var(--ease) both;
 }

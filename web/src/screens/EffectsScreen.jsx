@@ -23,6 +23,9 @@ const BLURB = {
  */
 export default function EffectsScreen() {
   const [family, setFamily] = useState('rgb')
+  // Where the selection pad sits. Clamped, so an unknown family cannot push it
+  // off the control.
+  const familyIndex = Math.max(0, FAMILIES.findIndex((f) => f.key === family))
   const [query, setQuery] = useState('')
   const deferredQuery = useDeferredValue(query)
 
@@ -52,17 +55,30 @@ export default function EffectsScreen() {
         single zone.
       </p>
 
-      <div className="seg" role="tablist" aria-label="Animation family">
+      {/* The pill's position is the selected index, handed to CSS as a column
+          and a row so the same span works two-up on a phone and four-across
+          on a wider screen. */}
+      <div
+        className="seg"
+        role="tablist"
+        aria-label="Animation family"
+        style={{
+          '--seg-i': familyIndex,
+          '--seg-x': familyIndex % 2,
+          '--seg-y': Math.floor(familyIndex / 2),
+        }}
+      >
+        <span className="seg-pill" aria-hidden="true" />
         {FAMILIES.map((f) => (
           <button
             key={f.key}
             type="button"
             role="tab"
             aria-selected={family === f.key}
-            className={`seg-btn${family === f.key ? ' is-active' : ''}`}
+            className={`seg-btn pressable${family === f.key ? ' is-active' : ''}`}
             onClick={() => setFamily(f.key)}
           >
-            {f.title}
+            <span className="seg-title">{f.title}</span>
             <span className="seg-count tnum">{f.count}</span>
           </button>
         ))}
@@ -97,7 +113,7 @@ export default function EffectsScreen() {
           onChange={(e) => setQuery(e.target.value)}
         />
         {query ? (
-          <button type="button" className="search-clear" onClick={() => setQuery('')} aria-label="Clear search">
+          <button type="button" className="search-clear pressable" onClick={() => setQuery('')} aria-label="Clear search">
             <Icon name="close" size={16} />
           </button>
         ) : null}

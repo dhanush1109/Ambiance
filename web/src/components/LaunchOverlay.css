@@ -4,9 +4,18 @@
    so the exit is one class (.is-leaving) regardless of which path ran, and the
    sheet can never be left mid-fade by a path that ended differently.
 
-   VIDEO (default) — Intro.mp4 at 1.25x, 8.0s, then a 420ms dissolve into Home.
+   VIDEO (default) — Intro.mp4 at 2x, 5.0s, played on a flat black plate with
+                     nothing behind it visible, then a 420ms settle into Home.
+                     The element itself opens at opacity:0 and only reveals once
+                     JS has proof a real frame decoded (see LaunchOverlay.jsx) —
+                     a WebView's own media chrome (a start-playback glyph, a
+                     blank poster) cannot be styled away with page CSS, so
+                     hiding the element is the only thing that reliably hides it.
    FALLBACK        — the CSS logo bloom, 780ms, then the same dissolve. Used
                      whenever the video errors, is refused, or never starts.
+
+   Both paths are decoration only: aria-hidden, pointer-events:none, no controls.
+   Home is live and tappable underneath from the first frame.
 
    Every animated property here is opacity or transform. A launch runs on the
    slowest frames the app will ever see, so the neon bloom is a second
@@ -19,11 +28,11 @@
   display: grid;
   place-items: center;
   background: var(--bg, #000);
+  --launch-zoom: 1.18;
 }
 
-/* The bloom path is 780ms of decoration and must never intercept a tap — Home
-   is live underneath from the first frame. The video path is 8s and offers the
-   skip button instead. */
+/* Nothing in either path is interactive, so nothing may swallow a tap meant for
+   the app underneath. */
 .launch.is-decorative {
   pointer-events: none;
 }
@@ -32,12 +41,21 @@
   animation: launch-out var(--dur-slow) var(--ease) forwards;
 }
 
+/* The plate. A flat, static match for `.launch`'s own background — with the
+   video no longer blended, this is what stops the live app (nav bar, dock,
+   car) showing straight through the intro. It stays opaque for the whole
+   run; only `.launch` itself fades on exit. */
+.launch-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--bg, #000);
+}
+
 /* ---------------- video path ---------------- */
 
-/* contain, not cover: the video is 1280x720 against a ~9:19.5 phone, so cover
-   would crop the car's flanks away. Its background is pure black on a pure
-   black overlay, which makes the letterbox bars invisible — the only cost of
-   contain here is nothing at all. */
+/* contain, not cover: the video is 960x720 against a ~9:19.5 phone, so cover
+   would still crop the car's flanks away to show only the tallest ~40% of the
+   frame width. */
 .launch-video {
   position: absolute;
   inset: 0;
@@ -45,58 +63,49 @@
   height: 100%;
   object-fit: contain;
   background: var(--bg, #000);
-  /* the flare at the climax is bright; keep it from banding on OLED */
-  will-change: opacity;
+  transform: scale(var(--launch-zoom));
+  /* The source is not quite pure black at its own edges (its darkest sampled
+     pixel is closer to rgb(4,5,8) than rgb(0,0,0), from the glow reaching the
+     frame) — against a flat black plate with a hard `object-fit: contain`
+     edge that reads as a faint seam on an OLED panel. Feathering the video's
+     own edge into the plate removes the seam without touching the plate. */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 10px,
+    #000 calc(100% - 10px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 10px,
+    #000 calc(100% - 10px),
+    transparent 100%
+  );
+  /* The actual fix for the start-of-playback glyph. A Chromium WebView's own
+     media chrome — the centred play button it draws while deciding whether to
+     honour autoplay, a blank first paint before a frame is composited — lives
+     outside the page's styling reach, so no selector targeting that chrome
+     directly can hide it. The only thing page CSS DOES control is the element
+     itself, so it stays invisible until LaunchOverlay.jsx has proof (a real
+     currentTime advance, not just a 'playing' event) that a real frame is on
+     screen. See the .is-live rule just below this one. */
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+  /* Its own compositor layer, so the sheet's exit fade does not force the
+     decoder's output to be re-rasterised every frame of the crossfade. */
+  will-change: opacity, transform;
 }
 
-/* Full-bleed hit area, so a tap anywhere gets past the intro. */
-.launch-skip {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+.launch-video.is-live {
+  opacity: 1;
 }
 
-/* Held back for a beat: the opening moment should not have a button on it. */
-.launch-skip-pill {
-  position: absolute;
-  right: max(var(--s5), env(safe-area-inset-right));
-  bottom: max(var(--s7), env(safe-area-inset-bottom));
-  display: grid;
-  place-items: center;
-  min-width: 68px;
-  min-height: 40px;
-  padding: 0 var(--s4);
-  border-radius: var(--r-pill);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  animation: launch-skip-in 320ms var(--ease) 1400ms both;
-}
-
-.launch-skip:active .launch-skip-pill {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.launch-skip:focus-visible .launch-skip-pill {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-
-@keyframes launch-skip-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+/* Settles toward the car's resting size as the sheet dissolves, so the neon
+   looks like it became the hero rather than cutting off. */
+.launch.is-leaving .launch-video {
+  animation: launch-settle var(--dur-slow) var(--ease) forwards;
 }
 
 /* ---------------- fallback path: the logo bloom ---------------- */
@@ -104,8 +113,8 @@
 .launch-stage {
   position: relative;
   width: min(70vw, 320px);
-  /* matches logo-launch.jpg, so the box never letterboxes the artwork */
-  aspect-ratio: 900 / 757;
+  /* matches logo-launch.png, so the box never letterboxes the artwork */
+  aspect-ratio: 1200 / 1009;
   /* clips the sweep to the artwork. The logo's own margin is black, so the
      bloom's blur is black out here too and loses nothing to the clip. */
   overflow: hidden;
@@ -182,15 +191,20 @@
   to { opacity: 0; }
 }
 
+@keyframes launch-settle {
+  from { transform: scale(var(--launch-zoom)); }
+  to { transform: scale(1); }
+}
+
 /* The component returns null under either reduced-motion signal, so none of
    this normally renders. Kept as a floor: if the overlay somehow mounts, it
    must appear and leave without motion rather than not leave at all. */
 @media (prefers-reduced-motion: reduce) {
   .launch.is-leaving { animation: launch-out 1ms linear forwards; }
   .launch.is-leaving .launch-stage,
+  .launch.is-leaving .launch-video,
   .launch-logo,
-  .launch-bloom,
-  .launch-skip-pill { animation: none; }
+  .launch-bloom { animation: none; }
   .launch-bloom { opacity: 0.4; }
   .launch-sweep { display: none; }
 }

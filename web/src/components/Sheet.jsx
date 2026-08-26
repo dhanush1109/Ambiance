@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
 import { useUiStore } from '../state/uiStore'
 import { useBreakpoint } from '../hooks/useBreakpoint'
@@ -12,6 +12,9 @@ import {
 import './Sheet.css'
 
 let sheetSeq = 0
+
+/** How long the close animation runs. Matches --dur in the stylesheet. */
+const EXIT_MS = 240
 
 /**
  * Bottom sheet on a phone, centred dialog on the tablet.
@@ -37,6 +40,17 @@ export default function Sheet({ open, title, onClose, children, footer, anchor =
   if (idRef.current === null) idRef.current = `sheet-${(sheetSeq += 1)}`
 
   const phone = useBreakpoint() === 'phone'
+
+  // `open` is the caller's intent; `visible` is what is actually on screen. They
+  // differ for the length of the exit animation — without that gap a scrim tap,
+  // Escape or the close button would rip the sheet out mid-frame, which is the
+  // one way out of a sheet that never looked designed.
+  const [visible, setVisible] = useState(open)
+  const [leaving, setLeaving] = useState(false)
+  // A flick-dismiss has already animated the panel away by the time it calls
+  // onClose. Replaying the exit would animate an off-screen sheet.
+  const draggedOut = useRef(false)
+  const exitTimer = useRef(null)
 
   // Kept in a ref so an inline arrow `onClose` doesn't re-register every render
   const closeRef = useRef(onClose)
@@ -252,6 +266,8 @@ export default function Sheet({ open, title, onClose, children, footer, anchor =
         if (fired) return
         fired = true
         closeTimer.current = null
+        // The panel is already off screen; the unmount must not animate again.
+        draggedOut.current = true
         closeRef.current?.()
       }
       node.addEventListener(
@@ -268,23 +284,62 @@ export default function Sheet({ open, title, onClose, children, footer, anchor =
     [paint],
   )
 
+  // Hold the sheet on screen for the length of its exit, then drop it.
+  useEffect(() => {
+    if (open) {
+      if (exitTimer.current) {
+        clearTimeout(exitTimer.current)
+        exitTimer.current = null
+      }
+      setVisible(true)
+      setLeaving(false)
+      return undefined
+    }
+
+    if (!visible || leaving) return undefined
+
+    // Already animated out by the drag, or motion is off: go straight away.
+    if (draggedOut.current || reduceMotion()) {
+      draggedOut.current = false
+      setVisible(false)
+      return undefined
+    }
+
+    setLeaving(true)
+    // A timer rather than transitionend: this is an animation, the panel and
+    // scrim end at different moments, and jsdom fires neither.
+    exitTimer.current = setTimeout(() => {
+      exitTimer.current = null
+      setLeaving(false)
+      setVisible(false)
+    }, EXIT_MS)
+    return undefined
+  }, [open, visible, leaving])
+
   useEffect(
     () => () => {
       if (closeTimer.current) clearTimeout(closeTimer.current)
+      if (exitTimer.current) clearTimeout(exitTimer.current)
     },
     [],
   )
 
-  if (!open) return null
+  if (!visible) return null
 
   return (
-    <div className={`sheet-layer${anchor ? ' is-anchored' : ''}`}>
+    <div
+      className={`sheet-layer${anchor ? ' is-anchored' : ''}${leaving ? ' is-leaving' : ''}`}
+      // On the way out this is a picture of a sheet, not a sheet. Dropping the
+      // dialog role the instant it is dismissed means a screen reader stops
+      // announcing a modal that is already closed, and nothing can be tapped
+      // during the 240ms it takes to fade.
+      {...(leaving ? { 'aria-hidden': 'true' } : null)}
+    >
       <div ref={scrim} className="sheet-scrim" onClick={onClose} aria-hidden="true" />
       <div
         ref={panel}
         className="sheet glass-sheet"
-        role="dialog"
-        aria-modal="true"
+        {...(leaving ? null : { role: 'dialog', 'aria-modal': 'true' })}
         aria-label={title}
         tabIndex={-1}
         onPointerDown={onPointerDown}

@@ -23,6 +23,9 @@
   /* concentric again, one level in */
   border-radius: calc(var(--r-xl) - var(--s4) - 6px);
   background: var(--c);
+  /* The rest of the app tweens --light on a colour change; without this the
+     swatch that triggered it was the one thing that snapped. */
+  transition: background-color var(--dur-accent) var(--ease);
 }
 
 /* The palette glyph rides on top of the swatch — needs to read on any hue,

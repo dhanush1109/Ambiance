@@ -19,7 +19,7 @@ export default function FavoriteCard({
     <div className="favcard card">
       <button
         type="button"
-        className="favcard-main"
+        className="favcard-main pressable"
         disabled={disabled}
         onClick={() => onApply?.(fav)}
         aria-label={`Apply ${fav.name}`}

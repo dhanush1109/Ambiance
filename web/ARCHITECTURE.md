@@ -241,32 +241,64 @@ LaunchOverlay.jsx <LaunchOverlay />  no props. LAST child of App.jsx, z-index 10
                      carries the path — NOT a class: a `launch-video` modifier on the wrapper would
                      collide with the .launch-video class on the <video> and apply its absolute
                      positioning to the whole sheet.
-                     VIDEO (default): src/assets/intro.mp4 at playbackRate 1.25 — 10.0s becomes 8.0s
-                     — then a 420ms dissolve. object-fit CONTAIN, not cover: the frame is 1280x720
-                     against a ~9:19.5 phone, and cover would crop the car's flanks off. The video's
-                     background is pure black on a pure black sheet, so the letterbox bars cost
-                     nothing. Muted, playsInline, autoPlay; play() is also called explicitly because
-                     that is what surfaces a rejection to react to. playbackRate is set on BOTH
-                     loadedmetadata and playing — an engine that has not parsed metadata ignores it,
-                     and some reset to 1x when decoding starts.
+                     VIDEO (default): src/assets/intro.mp4 (960x720, 10.006s master) at
+                     playbackRate 2 — 5.0s of actual playback — then a 420ms settle into Home.
+                     Runs on a FLAT BLACK PLATE with nothing behind it ever visible: `.launch` and
+                     `.launch-scrim` are both an opaque `var(--bg)`, and the video carries no
+                     `mix-blend-mode`. (Screen-blending the video against the live app was the
+                     original design — the app showed straight through the intro — so it was
+                     removed. The scrim stays a distinct element for layering but does not
+                     animate.) object-fit CONTAIN, not cover — cover would still crop the car's
+                     flanks away to the tallest ~40% of the frame. The source's own edges are not
+                     quite pure black (measured ~rgb(4,5,8) at worst, from the glow reaching the
+                     frame), so `.launch-video` carries a static `mask-image` that feathers its
+                     top/bottom 10px into the plate. `--launch-zoom` (1.18) sizes the drawn car
+                     toward the hero; the exit keyframe `launch-settle` scales it to 1.
+                     THE START-OF-PLAYBACK GLYPH: a Chromium WebView draws its own media chrome —
+                     the centred play button while it decides whether to honour autoplay, a blank
+                     first paint before a frame composites — OUTSIDE the page's styling reach.
+                     `::-webkit-media-controls*` selectors are inert there; a version of this
+                     component that relied on them still showed the glyph on device. The fix that
+                     actually works: `.launch-video` opens at `opacity: 0` and only reveals
+                     (`.is-live`, a 400ms opacity transition) once JS has PROOF a frame decoded —
+                     a `timeupdate` firing with `currentTime > 0`, not merely a `playing` event,
+                     which can fire before anything is composited. There is also no `autoPlay`
+                     attribute: the element carries `controls={false}` +
+                     `controlsList="nodownload nofullscreen noremoteplayback"` as a second layer,
+                     but the opacity gate is what actually does the work. `HOLD_MS` (500ms) delays
+                     the first explicit `play()` call — the half-second of deliberate black the
+                     owner asked the intro to open on — measured from mount, not stacked on top of
+                     `START_TIMEOUT`'s own window (HOLD_MS is comfortably inside it). Muted,
+                     playsInline; playbackRate is set on BOTH loadedmetadata and playing. No skip
+                     control: both paths are .is-decorative, pointer-events:none, aria-hidden;
+                     Home is live underneath from the first frame — but, unlike before, invisible
+                     until the exit fade.
                      FALLBACK: the CSS logo bloom, 780ms then the same dissolve. Used on error, on a
-                     refused/throwing play(), or when the video loads but never advances.
-                     8s is far too long to hold someone who wants to change a colour, so the video
-                     path is tappable ANYWHERE to skip (a full-bleed <button> with a real name and a
-                     Skip pill held back 1400ms) and is NOT pointer-events:none. The 780ms bloom
-                     stays decorative — .is-decorative, aria-hidden, taps pass through.
-                     Watchdog samples currentTime every 500ms: still 0 after 2500ms -> fallback;
-                     frozen 3000ms mid-play -> hand off. It does not run while document.hidden,
-                     because the WebView pauses video in the background and that is not a stall;
-                     visibilitychange resumes play and re-applies the rate.
-                     HARD_CAP 12000ms unmounts unconditionally — above 8000+2500+420, so it can
-                     never truncate the intro, and it is the one guarantee that the app is never
-                     left behind a black sheet.
+                     refused/throwing play(), or when the video loads but never advances. The scrim
+                     is the first child of both paths. `.launch-bloom`/`.launch-sweep` keep
+                     mix-blend-mode SCREEN — unlike the video, they blend a blurred copy of the logo
+                     against the SHARP copy inside the same stage, never against the live app, which
+                     is how that path gets its neon glow.
+                     GATE: `launchStore.gate` is `open` | `held`, default open. The overlay hold()s
+                     in useLayoutEffect when it will play, and release()s at the top of leave(),
+                     on HARD_CAP, and on unmount. CarHero waits while held, then runs its outline
+                     tracer so the SVG draw starts on the video's last flare.
+                     The effect cleanup calls pause(): unmounting at 1s must not leave 4s of muted
+                     video still holding the hardware decoder behind the app.
+                     Watchdog samples currentTime every 500ms, timed from mount (so its 2500ms
+                     window already CONTAINS the 500ms hold, not stacked after it): still 0 after
+                     2500ms -> fallback; frozen 3000ms mid-play -> hand off. It does not run while
+                     document.hidden, because the WebView pauses video in the background and that
+                     is not a stall; visibilitychange resumes play and re-applies the rate.
+                     HARD_CAP 9000ms unmounts unconditionally — above 2500 (start) + 5000 (play) +
+                     420 (exit), so it can never truncate the intro, and it is the one guarantee
+                     that the app is never left behind a black sheet.
                      Every keyframe is opacity/transform only — a launch runs on the slowest frames
                      the app ever sees, so the neon bloom is a second pre-blurred copy cross-faded
                      underneath (compositor) instead of an animated filter (paint).
                      Renders null under either reduced-motion signal, decided once at mount so a
-                     mid-flight settings change cannot cut the fade to a hard edge.
+                     mid-flight settings change cannot cut the fade to a hard edge. Reduced-motion
+                     never hold()s, so CarHero traces immediately.
 Card.jsx        <Card raise interactive as className>   SOLID surface, not glass
 CarHero.jsx     see section 2
 ColorField.jsx  <ColorField hex onChange onCommit />    hue strip + sat/val pad, pointer events, 8 presets
@@ -343,8 +375,10 @@ skipped if the drop lasted <60 s. `drift` — HSL hue walk, one tick every 2–8
 ## 9. Capacitor — `capacitor.config.json`, `package.json`
 
 `appId com.ambiance.hycross`, `appName Ambiance`, `webDir dist`, `backgroundColor #000000`,
-SplashScreen `launchAutoHide:true` + `launchFadeOutDuration:200` (the fade is what makes the native
-splash meet `LaunchOverlay` without a visible cut). Plugins: `@capacitor/app`, `@capacitor/preferences`,
+SplashScreen `launchAutoHide:true` + `launchFadeOutDuration:200` (the native splash and
+`LaunchOverlay`'s own plate are both a flat `#000`/`var(--bg)`, so this fade only needs to cover the
+handoff between two things that already look identical — it is not hiding a mismatch). Plugins:
+`@capacitor/app`, `@capacitor/preferences`,
 `@capacitor/status-bar`, `@capacitor/splash-screen`, `@capacitor-community/bluetooth-le`,
 `@capacitor-community/keep-awake`. minSdk 26 / target 35. Manifest: `BLUETOOTH_SCAN`
 (`usesPermissionFlags="neverForLocation"`) + `BLUETOOTH_CONNECT`, legacy BT/location `maxSdkVersion="30"`.
@@ -359,28 +393,39 @@ resources/icon.png             1024² logo at 82%, black    legacy pre-Android-8
 resources/icon-foreground.png  1024² logo at 78%, alpha    adaptive foreground
 resources/icon-background.png  1024² solid black           generated but unused (see below)
 resources/splash.png           2732² logo at 55%, black    pre-Android-12 splash
-src/assets/logo-launch.jpg     900px, 124KB                LaunchOverlay fallback art
-src/assets/intro.mp4           1280x720, 10.0s, 1.57MB     LaunchOverlay video (see below)
+src/assets/logo-launch.png     1200px, 1.86MB, lossless    LaunchOverlay fallback art
+src/assets/intro.mp4           1280x720, 10.0s, 2.39MB     LaunchOverlay video (see below)
 ```
 
-`intro.mp4` is derived from the owner's `Logo/Intro.mp4` (2.61 MB, H.264 High + AAC stereo, 24 fps).
-Two changes, both deliberate:
+### Quality policy — the owner chose size over nothing
 
-- **Audio stripped.** The intro is muted — an app that plays sound on launch while the phone is paired
-  to the car's head unit is wrong, and 1.25x playback would pitch it anyway. `launch.test.jsx` asserts
-  the shipped file contains no `mp4a` sample entry.
-- **Re-encoded at CRF 20**, 2.39 MB → 1.57 MB. Verified visually lossless before accepting: SSIM
-  0.9950, PSNR 48.1 dB average / 45.6 dB minimum, and a 2x nearest-neighbour crop of the grille
-  glow — the worst case for banding — is indistinguishable from the source.
+Everything here is **lossless**. The owner was explicit: "make the app heavy it's fine". Three earlier
+size optimisations were reverted, and each has a test guarding against its return. Do not reintroduce
+them to shrink the APK.
+
+| Asset | Was optimised to | Now | Why reverted |
+|---|---|---|---|
+| `intro.mp4` | CRF 20 re-encode, 1.57 MB | stream copy, 2.39 MB | a re-encode at any quality is still generation loss |
+| splash drawables | 256-colour palette, 2.53 MB | full 24-bit, 8.46 MB | quantising a neon gradient invites banding |
+| `logo-launch` | JPEG q90, 121 KB | PNG, 1.86 MB | JPEG ringing shows on line-work against black |
+
+`intro.mp4` comes from `Logo/Intro.mp4` (2.61 MB, H.264 High + AAC stereo, 1280x720, 24 fps, 10.006 s).
+The video stream is copied **bit for bit** — `ffmpeg` measures SSIM 1.000000 and infinite PSNR against
+the source. The only thing dropped is the AAC track, because the intro is muted by design: an app that
+makes noise on launch while the phone is paired to the car's head unit is wrong, and 2x playback
+would pitch the audio anyway. `launch.test.jsx` asserts the shipped file has no `mp4a` sample entry,
+and that it is larger than 2.2 MB — which is what catches a re-encode sneaking back in.
 
 ```powershell
-# from web/, with ffmpeg-static installed as a devDependency
+# from web/, with ffmpeg-static installed as a devDependency.
+# -c:v copy is the whole point: no re-encode, so no generation loss.
 node_modules\ffmpeg-static\ffmpeg.exe -y -i "..\Logo\Intro.mp4" `
-  -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -an -movflags +faststart src\assets\intro.mp4
+  -c:v copy -an -movflags +faststart src\assets\intro.mp4
 ```
 
 `+faststart` keeps `moov` ahead of `mdat` so the first frame decodes without reading the whole file.
-Android's aapt stores `.mp4` uncompressed, so the APK grows by the file's full size.
+Android's aapt stores `.mp4` uncompressed, so the APK grows by the file's full size. Current debug APK:
+**17.16 MB.**
 
 Regenerate with `npx @capacitor/assets generate --android --iconBackgroundColor '#000000'
 --splashBackgroundColor '#000000' --splashBackgroundColorDark '#000000'`. **Three things must then be
@@ -396,9 +441,8 @@ re-applied by hand — the generator overwrites them:**
 2. **`mipmap-*/ic_launcher_monochrome.png`** (6 densities, 108 dp canvas, logo at 78% to match the
    foreground). Built from the logo's own luminance as the alpha channel — the artwork is light on
    black, so its brightness already *is* its shape — with flat white RGB for the launcher to tint.
-3. **Splash recompression.** The generated splashes are 24-bit PNGs of a neon glow, up to 1.6 MB each
-   and 8.46 MB over the density set. They are one hue over black, so a 256-colour palette carries them
-   at 2.53 MB — a 70% saving with no visible loss.
+3. Nothing else. The generated splashes stay **full 24-bit** — they were once palette-quantised to
+   2.53 MB, and that was reverted (see the quality policy above). Leave them at 8.46 MB.
 
 `values/styles.xml` pins `windowSplashScreenBackground` and `windowSplashScreenIconBackgroundColor` to
 black. Android 12+ ignores the splash drawable and composes its own system splash from the adaptive
@@ -501,6 +545,67 @@ deliberate: `.carhero-wash`'s light pool is `inset: -10% -16%`, bleeding past
 the car on purpose, and the glow filters paint at `x:-60%, width:220%`. Both
 still render fully — only the page's ability to scroll to see the overflow is
 removed.
+
+**No sideways scroll inside a control either.** The page-level clip above hides
+overflow, so an inner scroller that overflows hides its own content with nothing
+to say so. Two surfaces used to do exactly that on a 390px phone and both are
+now wrapped/gridded — see §9e. `motion.test.jsx` guards it: neither
+`HomeScreen.css` nor `screens.css` may contain `overflow-x: auto`,
+`scrollbar-width: none`, `::-webkit-scrollbar`, or `scroll-snap-type`.
+
+## 9e. Motion pass — every state change is animated
+
+The rule: a control that changes state animates the change, and anything that
+appears also has a way of leaving. Everything below is opacity/transform only,
+reuses the existing tokens, and dies under both reduced-motion switches
+(`glass.css` media query + `body[data-reduce-motion="1"]`).
+
+**Sliding selection pads.** `NavBar`'s pill (`transform: translateX(calc(var(--nav-i) * 100%))`)
+generalised to the two other multi-choice controls, because a highlight that
+blinks out here and in over there reads as two events rather than one movement:
+
+- `.zonechip-pill` — `--zone-i` from the selected index (clamped, so an
+  unrecognised zone parks it on the first chip). The active chip drops its own
+  accent block *and its backdrop-filter*, which would otherwise smear the pad's
+  crisp border sitting directly behind it.
+- `.seg-pill` — the effects family switcher, positioned as a column and a row
+  (`--seg-x`, `--seg-y`) for the 2x2 phone grid and by `--seg-i` for the
+  single row at ≥560px.
+
+**Exits, which is what was actually missing.** A sheet had four ways in and only
+one animated way out; the flick had an exit, while the scrim tap, the close
+button, Escape and hardware-back all ripped it out mid-frame.
+
+- `Sheet` now separates `open` (the caller's intent) from `visible` (what is on
+  screen), holding the panel for `EXIT_MS` (240ms, matching `--dur`) while
+  `.is-leaving` plays `sheet-down` / `sheet-unpop`. A timer, not
+  `transitionend` — jsdom fires neither and the panel and scrim finish at
+  different moments. `draggedOut` suppresses a second exit after a flick, which
+  has already animated the panel away before it calls `onClose`.
+  **A leaving sheet is a picture of a sheet:** it drops `role="dialog"` and
+  `aria-modal` immediately and takes `aria-hidden` + `pointer-events: none`, so
+  no screen reader announces a modal that is already dismissed.
+- `Toast` mirrors this with `toast-lift`. The store still owns *when* a toast
+  ends (single owner); the component owns only how it looks going.
+
+**Entrances and press feedback** for things that used to pop: favourite rows
+(`.anim-rise`, 30ms stagger, capped), the advanced panel and scanned device
+rows, the Home connect card and running banner, the search clear button
+(`amb-pop`), and both card check badges. `.pressable` added to the zone chips,
+family tabs, favourite rows, and the search clear.
+
+**Two half-transitions fixed:** the colour swatch snapped to a new hue while the
+rest of the app tweened `--light`, and `StatusPill` transitioned only
+`background-color` while its border and text hard-cut.
+
+**Deliberately left alone:** the outgoing screen on a tab change is cut, not
+faded. iOS cuts its own tab changes, and crossfading would require both screens
+absolutely positioned and overlapping — breaking the two `position: sticky`
+elements inside them. The reasoning is in `App.css` so it does not get
+"fixed" later.
+
+Dead `@keyframes amb-shimmer` removed; a test now fails on any keyframe nothing
+references.
 
 ## 10. Conventions
 
