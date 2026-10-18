@@ -191,6 +191,22 @@ body {
      scroll container and break the app's `position: sticky` elements (the
      floating control dock, the tablet's sticky car pane). */
   overflow-x: clip;
+  /* Overlay-style scroll: still scrollable, no visible track. Same treatment
+     as .home-quick-row / .seg. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 body {

@@ -1,11 +1,14 @@
 import { bridgeTransport } from './bridgeTransport'
 import { mockTransport } from './mockTransport'
+import { webBleTransport } from './webBleTransport'
 
 /**
  * Picks the right way to reach the controller:
- *   native  — Android APK, BLE straight from the device
- *   bridge  — desktop browser, through server.py
- *   mock    — no hardware at all (VITE_TRANSPORT=mock)
+ *   native       — Android APK, BLE straight from the device
+ *   web          — browser Web Bluetooth (Chrome, Bluefy)
+ *   bridge       — local `npm run dev`, through server.py
+ *   mock         — no hardware (VITE_TRANSPORT=mock)
+ *   unavailable  — Safari / iPhone Home Screen: no Bluetooth API
  *
  * @typedef {{address: string, name: string, rssi: number|null,
  *            hw: 'A'|'B'|null, isPinned: boolean}} Device
@@ -33,8 +36,12 @@ export function getTransport() {
     cached = createNativeProxy()
   } else if (import.meta.env?.VITE_TRANSPORT === 'mock') {
     cached = mockTransport
-  } else {
+  } else if (typeof navigator !== 'undefined' && navigator.bluetooth) {
+    cached = webBleTransport
+  } else if (import.meta.env.DEV) {
     cached = bridgeTransport
+  } else {
+    cached = unavailableTransport
   }
   return cached
 }
@@ -46,6 +53,26 @@ export function transportKind() {
 /** Test seam. */
 export function _setTransport(t) {
   cached = t
+}
+
+const IOS_BLE =
+  'This iPhone cannot talk Bluetooth from Safari or a Home Screen app. Add Ambiance to the Home Screen for the app itself. To drive the lights, use the Android app, or open this site in Bluefy.'
+
+const unavailableTransport = {
+  kind: 'unavailable',
+  isConnected: () => false,
+  currentDevice: () => null,
+  onDisconnect() {},
+  async scan() {
+    throw new Error(IOS_BLE)
+  },
+  async connect() {
+    throw new Error(IOS_BLE)
+  },
+  async disconnect() {},
+  async send() {
+    throw new Error('Not connected')
+  },
 }
 
 /**

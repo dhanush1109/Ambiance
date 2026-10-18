@@ -83,12 +83,12 @@
   position: relative;
 }
 
-/* Five equal tabs, so one tab-width per index step. The outer span does the
-   sliding; the inset keeps the visible pad narrower than a full tab. */
+/* One tab-width per index step. The outer span does the sliding; the inset
+   keeps the visible pad narrower than a full tab. */
 .nav-bottom .nav-pill {
   top: 9px;
   left: 0;
-  width: calc(100% / 5);
+  width: calc(100% / var(--nav-n, 5));
   height: calc(var(--nav-h) - 18px);
   background: none;
   transform: translateX(calc(var(--nav-i) * 100%));
@@ -97,7 +97,8 @@
 .nav-bottom .nav-pill::after {
   content: '';
   position: absolute;
-  inset: 0 calc(50% - 26px);
+  /* Narrower than half the pad, so six tabs stay inside their own slot */
+  inset: 0 max(4px, calc(50% - 26px));
   border-radius: var(--r-sm);
   background: var(--accent-soft);
 }

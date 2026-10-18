@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScreen'
 import MoodsScreen from './screens/MoodsScreen'
 import EffectsScreen from './screens/EffectsScreen'
 import FavoritesScreen from './screens/FavoritesScreen'
+import DashcamScreen from './screens/DashcamScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import { useUiStore } from './state/uiStore'
 import { useLightStore, dominantHex } from './state/lightStore'
@@ -28,6 +29,7 @@ const SCREENS = {
   moods: MoodsScreen,
   effects: EffectsScreen,
   favorites: FavoritesScreen,
+  dashcam: DashcamScreen,
   settings: SettingsScreen,
 }
 

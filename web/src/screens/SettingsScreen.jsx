@@ -12,8 +12,10 @@ import './settings.css'
 
 const TRANSPORT_LABEL = {
   native: 'Direct Bluetooth (Android)',
+  web: 'Web Bluetooth',
   bridge: 'Desktop bridge (server.py)',
   mock: 'Mock — no hardware',
+  unavailable: 'No Bluetooth in this browser',
 }
 
 export default function SettingsScreen() {
@@ -219,6 +221,10 @@ export default function SettingsScreen() {
             lines and pockets (12 pieces); <b>Handles &amp; feet</b> covers the four inner door
             handles and the footwells (7 pieces); <b>All cabin</b> drives everything at once.
             Animations always run across the whole kit, and brightness has ten steps.
+          </p>
+          <p>
+            On iPhone, add this site to the Home Screen (Share → Add to Home Screen). Safari
+            cannot talk Bluetooth, so the lights still need the Android app — or Bluefy.
           </p>
           <p className="about-warn">
             <Icon name="alert" size={16} />

@@ -41,5 +41,6 @@ export const TABS = [
   { id: 'moods', label: 'Moods', icon: 'moods' },
   { id: 'effects', label: 'Effects', icon: 'effects' },
   { id: 'favorites', label: 'Saved', icon: 'favorites' },
+  { id: 'dashcam', label: 'Dash Cam', icon: 'dashcam' },
   { id: 'settings', label: 'Settings', icon: 'settings' },
 ]

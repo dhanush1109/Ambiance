@@ -12,6 +12,7 @@ import { controller } from '../services/controller'
 import { haptics } from '../services/haptics'
 import { ambient } from '../engine/ambientEngine'
 import { PINNED_DEVICE } from '../config/device'
+import { transportKind } from '../services/transport'
 import { MOODS } from '../data/moods'
 import { ZONES } from '../protocol/catalog'
 import './HomeScreen.css'
@@ -158,6 +159,7 @@ export default function HomeScreen() {
               Ambiance connects straight to {PINNED_DEVICE.name} at {PINNED_DEVICE.mac} — no
               scanning, no device list.
             </p>
+            <PhoneHint />
           </div>
           <button
             type="button"
@@ -222,4 +224,36 @@ export default function HomeScreen() {
       )}
     </div>
   )
+}
+
+function PhoneHint() {
+  const kind = transportKind()
+  const standalone =
+    typeof window !== 'undefined' &&
+    (window.matchMedia?.('(display-mode: standalone)').matches ||
+      window.navigator?.standalone === true)
+  const ios = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/.test(navigator.userAgent)
+
+  if (kind === 'unavailable') {
+    return (
+      <p className="home-connect-sub">
+        {ios && !standalone
+          ? 'On iPhone: tap Share, then Add to Home Screen. Safari cannot drive the lights — use the Android app, or open this site in Bluefy.'
+          : 'This browser cannot talk Bluetooth. Use the Android app to drive the lights, or open this site in Bluefy on iPhone.'}
+      </p>
+    )
+  }
+  if (kind === 'web') {
+    return (
+      <p className="home-connect-sub">
+        Your phone will ask you to pick a Bluetooth device. Choose {PINNED_DEVICE.name}.
+      </p>
+    )
+  }
+  if (ios && !standalone) {
+    return (
+      <p className="home-connect-sub">On iPhone: tap Share, then Add to Home Screen.</p>
+    )
+  }
+  return null
 }

@@ -1,5 +1,5 @@
 import { controller } from './controller'
-import { getTransport } from './transport'
+import { getTransport, transportKind } from './transport'
 import { useConnectionStore } from '../state/connectionStore'
 import { useSettingsStore } from '../state/settingsStore'
 
@@ -22,6 +22,9 @@ export function isReconnecting() {
 
 export function startAutoReconnect() {
   if (!useSettingsStore.getState().autoReconnect) return
+  // Web Bluetooth needs a tap; Safari has no Bluetooth at all.
+  const kind = transportKind()
+  if (kind === 'web' || kind === 'unavailable') return
   stopped = false
   attempt = 0
   attemptConnect()
@@ -65,6 +68,8 @@ async function attemptConnect() {
 /** Called by the transport's disconnect callback. */
 export function handleDrop() {
   if (!useSettingsStore.getState().autoReconnect) return
+  const kind = transportKind()
+  if (kind === 'web' || kind === 'unavailable') return
   stopped = false
   attempt = 0
   if (timer) clearTimeout(timer)

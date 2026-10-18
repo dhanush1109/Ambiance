@@ -17,7 +17,9 @@ export default function NavBar({ variant = 'bottom' }) {
       className={`nav glass-nav nav-${variant}`}
       aria-label="Main"
     >
-      <ul className="nav-list" style={{ '--nav-i': index }}>
+      {/* --nav-n so the sliding indicator's width tracks the real tab count
+          instead of a number hard-coded in the stylesheet. */}
+      <ul className="nav-list" style={{ '--nav-i': index, '--nav-n': TABS.length }}>
         {/* One indicator that slides between tabs, rather than a pad that
             blinks on and off under each one. */}
         <span className="nav-pill" aria-hidden="true" />

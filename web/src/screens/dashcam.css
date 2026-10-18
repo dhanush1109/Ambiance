@@ -1,0 +1,280 @@
+/* Dash Cam Pro+ — a readout screen, so the hierarchy is state first,
+   detail second, controls last. */
+
+.dc-hero {
+  margin-bottom: var(--s4);
+}
+
+.dc-hero-top {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.dc-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The one big word on the screen: what the camera is doing. */
+.dc-state {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.dc-meta {
+  margin-top: 2px;
+  font-size: var(--t-caption);
+  color: var(--text-muted);
+}
+
+.dc-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: amb-pop var(--dur-fast) var(--ease-spring);
+}
+
+.dc-hero.tone-ok .dc-dot {
+  background: var(--ok);
+  box-shadow: 0 0 0 3px rgba(50, 215, 75, 0.16);
+}
+
+/* Recording is the one state worth a heartbeat — it means the camera is
+   actively writing, and it should read as alive at a glance. */
+.dc-hero.tone-rec .dc-dot {
+  background: var(--danger);
+  box-shadow: 0 0 0 3px rgba(255, 105, 97, 0.18);
+  animation:
+    amb-pop var(--dur-fast) var(--ease-spring),
+    amb-breathe 2s var(--ease) infinite;
+}
+
+.dc-hero.tone-busy .dc-dot {
+  background: var(--gold);
+  animation:
+    amb-pop var(--dur-fast) var(--ease-spring),
+    amb-breathe 1.3s var(--ease) infinite;
+}
+
+.dc-refresh {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.dc-refresh:disabled {
+  color: var(--text-muted);
+}
+
+.dc-spin {
+  animation: dc-spin 900ms linear infinite;
+}
+
+@keyframes dc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dc-warn {
+  margin-top: var(--s3);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* A reading from the wrong camera is a correctness problem, not a nicety —
+   it earns the one alarming colour this screen has. */
+.dc-warn-alert {
+  color: var(--danger);
+}
+
+/* ---------------- detail tiles ---------------- */
+
+.dc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.dc-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s4);
+  min-width: 0;
+}
+
+.dc-stat-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-caps);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--s2);
+}
+
+.dc-stat-value {
+  font-family: var(--font-display);
+  font-size: var(--t-head);
+  font-weight: 600;
+  color: var(--text);
+  /* SSIDs and model names are arbitrary length and must not widen the grid */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dc-stat-value-sm {
+  font-size: var(--t-body);
+}
+
+.dc-stat-sub {
+  font-size: var(--t-caption);
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.dc-bar {
+  display: block;
+  height: 4px;
+  margin-top: var(--s3);
+  border-radius: var(--r-pill);
+  background: var(--fill-2);
+  overflow: hidden;
+}
+
+.dc-bar-fill {
+  display: block;
+  width: var(--pct, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width var(--dur-slow) var(--ease);
+}
+
+/* ---------------- controls and notes ---------------- */
+
+.dc-actions,
+.dc-note,
+.dc-pair {
+  padding: var(--s4);
+}
+
+.dc-pair-form {
+  display: grid;
+  gap: var(--s2);
+  margin-top: var(--s4);
+}
+
+.dc-pair-label {
+  font-size: var(--t-caps);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dc-pair-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--s3);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--lens-edge);
+  background: var(--fill-1);
+  color: var(--text);
+  /* A code is read character by character, so the digits must not be
+     ambiguous the way a proportional face makes them. */
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  letter-spacing: 0.08em;
+}
+
+.dc-pair-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.dc-actions-row {
+  display: flex;
+  gap: var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.dc-actions-row .btn {
+  flex: 1;
+  gap: var(--s2);
+}
+
+.dc-note-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-label);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--s2);
+}
+
+.dc-note-body {
+  margin-bottom: 0;
+}
+
+.dc-note-body code {
+  padding: 1px 6px;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline);
+  background: var(--fill-1);
+  color: var(--text-dim);
+  font-size: var(--t-caption);
+}
+
+.dc-streams {
+  list-style: none;
+  margin: var(--s3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dc-streams code {
+  display: block;
+  padding: 8px var(--s3);
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline);
+  background: var(--fill-1);
+  font-size: var(--t-caption);
+  color: var(--text-dim);
+  /* A URL is one unbroken token; let it wrap rather than scroll the page */
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.dc-error {
+  margin-top: var(--s4);
+  color: var(--danger);
+}
+
+@media (min-width: 640px) {
+  .dc-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
