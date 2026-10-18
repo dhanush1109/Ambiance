@@ -198,6 +198,22 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* iOS Capacitor: fill the display edge-to-edge; CSS safe-area tokens inset
+   interactive content (HIG — Layout > Guides and safe areas). */
+html[data-platform='ios'],
+html[data-platform='ios'] body,
+html[data-platform='ios'] #root {
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+  background: #000;
+  overscroll-behavior-y: none;
+}
+
+html[data-platform='ios'] {
+  /* Match the denser iOS tab bar so docks/sheets clear it correctly */
+  --nav-h: 64px;
+}
+
 html {
   scroll-behavior: smooth;
 }

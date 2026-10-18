@@ -13,7 +13,9 @@
   },
   "ios": {
     "backgroundColor": "#000000",
-    "contentInset": "automatic"
+    "contentInset": "never",
+    "preferredContentMode": "mobile",
+    "scrollEnabled": true
   },
   "plugins": {
     "SplashScreen": {

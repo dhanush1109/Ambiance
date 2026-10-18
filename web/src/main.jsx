@@ -16,6 +16,9 @@ import '@fontsource/inter/latin-700.css'
 import './theme/tokens.css'
 import './theme/glass.css'
 import App from './App'
+import { applyPlatformDataset } from './services/platform'
+
+applyPlatformDataset()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

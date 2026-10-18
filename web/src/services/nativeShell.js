@@ -49,10 +49,13 @@ export function initKeepAwake() {
 let statusBarInited = false
 
 /**
- * Black bar with light icons, matching the app.
+ * Edge-to-edge black chrome with light status icons.
  *
- * Note the enum: `Style.Dark` means "dark background", which gives LIGHT
- * icons — the opposite of what the name suggests at a glance.
+ * iOS: overlay the webview so CSS `env(safe-area-inset-*)` is the single
+ * source of truth. Capacitor's `contentInset: automatic` + CSS insets used to
+ * double-pad and crush the layout under the notch / home indicator.
+ *
+ * Note the enum: `Style.Dark` means dark *background* → LIGHT icons.
  */
 export function initStatusBar() {
   if (statusBarInited || !isNative()) return
@@ -61,9 +64,18 @@ export function initStatusBar() {
   import('@capacitor/status-bar')
     .then(async ({ StatusBar, Style }) => {
       try {
-        await StatusBar.setOverlaysWebView({ overlay: false })
-        await StatusBar.setBackgroundColor({ color: '#000000' })
+        const plat =
+          typeof window !== 'undefined' && window.Capacitor?.getPlatform
+            ? window.Capacitor.getPlatform()
+            : ''
+
+        // Both platforms: draw under the status bar; tokens.css handles insets.
+        await StatusBar.setOverlaysWebView({ overlay: true })
         await StatusBar.setStyle({ style: Style.Dark })
+        if (plat !== 'ios') {
+          // Android still accepts an explicit bar colour; iOS ignores it when overlaying.
+          await StatusBar.setBackgroundColor({ color: '#000000' })
+        }
       } catch {
         // Android 15 with targetSdk 35 enforces edge-to-edge and may ignore
         // these. Harmless here: the app is black to the edges anyway.

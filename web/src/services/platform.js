@@ -16,3 +16,23 @@ export function isNative() {
   const c = typeof window !== 'undefined' ? window.Capacitor : null
   return !!(c && typeof c.isNativePlatform === 'function' && c.isNativePlatform())
 }
+
+/** Capacitor platform id: 'ios' | 'android' | 'web'. */
+export function getPlatform() {
+  const c = typeof window !== 'undefined' ? window.Capacitor : null
+  if (c && typeof c.getPlatform === 'function') return c.getPlatform()
+  return 'web'
+}
+
+export function isIOS() {
+  return getPlatform() === 'ios'
+}
+
+/**
+ * Stamp the shell on <html> so CSS can tune iOS (nav density, glass opacity)
+ * without JS branches in every component.
+ */
+export function applyPlatformDataset() {
+  if (typeof document === 'undefined') return
+  document.documentElement.dataset.platform = getPlatform()
+}

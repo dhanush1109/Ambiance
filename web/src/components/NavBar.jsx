@@ -33,7 +33,7 @@ export default function NavBar({ variant = 'bottom' }) {
                 aria-current={active ? 'page' : undefined}
                 onClick={() => setTab(t.id)}
               >
-                <Icon name={t.icon} size={22} filled={active} />
+                <Icon name={t.icon} size={TABS.length >= 6 ? 20 : 22} filled={active} />
                 <span className="nav-label">{t.label}</span>
               </button>
             </li>

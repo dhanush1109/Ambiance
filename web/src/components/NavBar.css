@@ -103,6 +103,46 @@
   background: var(--accent-soft);
 }
 
+/* Six tabs: keep ≥44pt hit targets but tighten chrome so labels don't collide
+   (HIG — layout / accessibility). */
+.nav-bottom .nav-label {
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+@media (max-width: 390px) {
+  .nav-bottom .nav-label {
+    font-size: 9px;
+  }
+
+  .nav-bottom .nav-item {
+    gap: 2px;
+  }
+}
+
+/* iOS WKWebView: slightly denser bar, clearer separation from content */
+html[data-platform='ios'] .nav-bottom {
+  padding-bottom: max(var(--sab), 8px);
+  background: rgba(10, 11, 14, 0.88);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+  border-top: 1px solid var(--hairline-strong);
+}
+
+html[data-platform='ios'] .nav-bottom .nav-list {
+  height: 64px;
+}
+
+html[data-platform='ios'] .nav-bottom .nav-pill {
+  height: calc(64px - 16px);
+  top: 8px;
+}
+
+html[data-platform='ios'] .nav-bottom .nav-item {
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* ---------------- tablet: left rail ---------------- */
 
 .nav-rail {

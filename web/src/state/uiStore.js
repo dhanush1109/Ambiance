@@ -41,6 +41,7 @@ export const TABS = [
   { id: 'moods', label: 'Moods', icon: 'moods' },
   { id: 'effects', label: 'Effects', icon: 'effects' },
   { id: 'favorites', label: 'Saved', icon: 'favorites' },
-  { id: 'dashcam', label: 'Dash Cam', icon: 'dashcam' },
+  // Short label — six tabs must stay scannable on a phone tab bar (HIG).
+  { id: 'dashcam', label: 'Cam', icon: 'dashcam' },
   { id: 'settings', label: 'Settings', icon: 'settings' },
 ]

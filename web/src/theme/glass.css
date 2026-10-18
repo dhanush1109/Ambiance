@@ -115,6 +115,16 @@
   box-shadow: inset 0 1px 0 0 var(--lens-top);
 }
 
+/* iOS: blur alone can wash out over OLED black; thicken the fill so the tab
+   bar still reads as a distinct control layer (Liquid Glass / materials). */
+html[data-platform='ios'] .glass-nav,
+html[data-platform='ios'] .glass-dock,
+html[data-platform='ios'] .glass-sheet {
+  background: rgba(12, 13, 16, 0.82);
+  background-image: linear-gradient(rgba(12, 13, 16, 0.82), rgba(12, 13, 16, 0.82)),
+    linear-gradient(180deg, var(--lens-top), transparent 40%, var(--lens-inner));
+}
+
 .glass-dock {
   border-radius: var(--r-xl);
   box-shadow:
