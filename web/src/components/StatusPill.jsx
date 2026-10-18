@@ -15,7 +15,7 @@ const LOOK = {
   error: { text: 'Connection failed', tone: 'bad', icon: 'alert' },
 }
 
-export default function StatusPill({ compact = false, micro = false }) {
+export default function StatusPill({ micro = false }) {
   const status = useConnectionStore((s) => s.status)
   const device = useConnectionStore((s) => s.device)
   const showToast = useUiStore((s) => s.showToast)
@@ -47,7 +47,7 @@ export default function StatusPill({ compact = false, micro = false }) {
 
   return (
     <Tag
-      className={`statuspill tone-${look.tone}${compact ? ' is-compact' : ''}${micro ? ' is-micro' : ''}`}
+      className={`statuspill tone-${look.tone}${micro ? ' is-micro' : ''}`}
       {...(Tag === 'button'
         ? {
             type: 'button',
@@ -63,7 +63,7 @@ export default function StatusPill({ compact = false, micro = false }) {
       <span key={label} className="statuspill-text tick-swap">
         {label}
       </span>
-      {Tag === 'button' && !compact && !micro ? (
+      {Tag === 'button' && !micro ? (
         <>
           <span className="statuspill-cta">Connect</span>
           <Icon name="chevron-right" size={16} />

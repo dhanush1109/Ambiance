@@ -58,7 +58,7 @@
 
 .zonechip-count {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: var(--t-caps);
   color: var(--text-muted);
 }
 

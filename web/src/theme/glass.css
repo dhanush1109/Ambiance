@@ -342,7 +342,7 @@ html[data-platform='ios'] .glass-sheet {
    than floating above it. Optical sizing means big text wants less spacing,
    not the same spacing scaled up. */
 .screen-title {
-  font-size: clamp(28px, 6vw, 34px);
+  font-size: clamp(1.625rem, 1.625rem + 1vw, 2.125rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: var(--s1);
@@ -520,5 +520,43 @@ body[data-reduce-motion="1"] *::after {
   .card,
   .card-raise {
     border-color: var(--hairline-strong);
+  }
+}
+
+/* Windows High Contrast / forced-colors — the one a11y media feature that
+   was missing. System colours replace our palette so chrome stays legible. */
+@media (forced-colors: active) {
+  .glass-nav,
+  .glass-dock,
+  .glass-sheet,
+  .glass-thin,
+  .glass,
+  .glass-thick,
+  .chip,
+  .card,
+  .card-raise,
+  .btn,
+  .app-settings,
+  .statuspill {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .btn-primary,
+  .nav-item.is-active,
+  .app-settings.is-active {
+    background: Highlight;
+    color: HighlightText;
+    border-color: HighlightText;
+  }
+
+  :where(button, a, input, [tabindex]):focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
   }
 }

@@ -92,19 +92,22 @@
   --s7: 48px;
   --s8: 64px;
 
-  /* Type — one family, varied by weight/tracking/size, the way SF Pro is used
-     rather than pairing unrelated display/body fonts. */
+  /* Type — rem scale so WKWebView / Dynamic Type can grow text. html uses
+     -apple-system-body as the rem root on supporting engines. */
   --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --t-wordmark: clamp(34px, 8vw, 46px);
-  --t-display: clamp(28px, 7vw, 40px);
-  --t-title: clamp(20px, 4.5vw, 26px);
-  --t-head: 17px;
-  --t-body: 15px;
-  --t-label: 13px;
-  --t-caption: 12px;
-  --t-caps: 11px;
+  --t-wordmark: clamp(2rem, 2rem + 2vw, 2.875rem);
+  --t-display: clamp(1.625rem, 1.625rem + 1.5vw, 2.5rem);
+  --t-title: clamp(1.25rem, 1.25rem + 0.5vw, 1.625rem);
+  --t-head: 1.0625rem;
+  --t-body: 0.9375rem;
+  --t-label: 0.8125rem;
+  --t-caption: 0.75rem;
+  /* Floor at 12px-equivalent (0.75rem) — Apple's mobile minimum is 11pt */
+  --t-caps: 0.75rem;
+  /* Tab labels stay readable but must not blow the bar at large text sizes */
+  --t-tab: clamp(0.6875rem, 0.6875rem, 0.75rem);
 
   /* Tracking is a hierarchy lever in its own right — wide caps read as
      "instrument label" without needing size or weight. */
@@ -216,6 +219,16 @@ html[data-platform='ios'] {
 
 html {
   scroll-behavior: smooth;
+  /* -apple-system-body makes rem track Dynamic Type in WKWebView / Safari */
+  font: -apple-system-body;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@supports not (font: -apple-system-body) {
+  html {
+    font-size: 100%;
+  }
 }
 
 html::-webkit-scrollbar,
@@ -230,7 +243,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: var(--t-body);
+  /* 1rem inherits Dynamic Type from html; --t-body is for components */
+  font-size: 1rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

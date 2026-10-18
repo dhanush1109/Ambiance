@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import NavBar from './components/NavBar'
 import StatusPill from './components/StatusPill'
+import Icon from './components/Icon'
 import Toast from './components/Toast'
 import AmbientBackdrop from './components/AmbientBackdrop'
 import LaunchOverlay from './components/LaunchOverlay'
@@ -35,6 +36,7 @@ const SCREENS = {
 
 export default function App() {
   const tab = useUiStore((s) => s.tab)
+  const setTab = useUiStore((s) => s.setTab)
   const breakpoint = useBreakpoint()
   const light = useLightStore(dominantHex)
   const reduceGlass = useSettingsStore((s) => s.reduceGlass)
@@ -121,6 +123,15 @@ export default function App() {
 
       <div className="app-link">
         <StatusPill micro />
+        <button
+          type="button"
+          className={`app-settings pressable${tab === 'settings' ? ' is-active' : ''}`}
+          aria-label="Settings"
+          aria-current={tab === 'settings' ? 'page' : undefined}
+          onClick={() => setTab('settings')}
+        >
+          <Icon name="settings" size={20} filled={tab === 'settings'} />
+        </button>
       </div>
       <NavBar variant={rail ? 'rail' : 'bottom'} />
       <Toast />

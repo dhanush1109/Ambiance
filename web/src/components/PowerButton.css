@@ -47,7 +47,7 @@
 }
 
 .power-text {
-  font-size: 11px;
+  font-size: var(--t-caps);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -75,8 +75,4 @@
 .power:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-
-.power.is-busy .power-ring {
-  animation: amb-breathe 1.2s var(--ease) infinite;
 }

@@ -99,7 +99,7 @@
 
 .seg-count {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: var(--t-caps);
   opacity: 0.7;
 }
 
@@ -147,8 +147,8 @@
   right: var(--s2);
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   color: var(--text-muted);
   animation: amb-pop var(--dur-fast) var(--ease) both;
@@ -179,7 +179,7 @@
 }
 
 .effects-active .btn {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 var(--s3);
   font-size: var(--t-label);
   flex: none;

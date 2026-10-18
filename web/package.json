@@ -19,6 +19,7 @@
     "@capacitor-community/keep-awake": "^7.1.0",
     "@capacitor/app": "^7.1.2",
     "@capacitor/core": "^7.6.8",
+    "@capacitor/haptics": "^7.0.5",
     "@capacitor/preferences": "^7.0.4",
     "@capacitor/splash-screen": "^7.0.5",
     "@capacitor/status-bar": "^7.0.6",

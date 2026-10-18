@@ -1,0 +1,39 @@
+.errbound {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--s5) + var(--sat)) var(--s5) calc(var(--s5) + var(--sab));
+  background: #000;
+  color: var(--text, #fff);
+}
+
+.errbound-card {
+  max-width: 22rem;
+  width: 100%;
+  padding: var(--s5);
+  border-radius: var(--r-lg, 24px);
+  background: var(--surface, #131519);
+  border: 1px solid var(--hairline, rgba(255, 255, 255, 0.07));
+  text-align: center;
+}
+
+.errbound-title {
+  font-size: var(--t-title, 1.25rem);
+  margin-bottom: var(--s3, 12px);
+}
+
+.errbound-text {
+  font-size: var(--t-body, 0.9375rem);
+  color: var(--text-dim, #c3cad5);
+  line-height: 1.5;
+  margin-bottom: var(--s5, 24px);
+}
+
+.errbound-btn {
+  width: 100%;
+  min-height: 48px;
+  border-radius: var(--r-md, 18px);
+  background: var(--accent, #5e5ce6);
+  color: var(--on-accent, #fff);
+  font-weight: 600;
+}

@@ -36,10 +36,10 @@
 }
 
 .nav-label {
-  font-size: 11px;
+  /* Capped — HIG: tab titles should not grow with Dynamic Type */
+  font-size: var(--t-tab);
   font-weight: 500;
   letter-spacing: 0.01em;
-  /* "Settings" must never wrap to a second line and shove the row taller */
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
@@ -103,30 +103,27 @@
   background: var(--accent-soft);
 }
 
-/* Six tabs: keep ≥44pt hit targets but tighten chrome so labels don't collide
-   (HIG — layout / accessibility). */
 .nav-bottom .nav-label {
-  font-size: 10px;
   letter-spacing: 0;
 }
 
 @media (max-width: 390px) {
-  .nav-bottom .nav-label {
-    font-size: 9px;
-  }
-
   .nav-bottom .nav-item {
     gap: 2px;
   }
 }
 
-/* iOS WKWebView: slightly denser bar, clearer separation from content */
+/* iOS WKWebView: denser bar + scroll-edge fade (no hard hairline) so content
+   transitions under the control layer (HIG — Layout > Visual hierarchy). */
 html[data-platform='ios'] .nav-bottom {
   padding-bottom: max(var(--sab), 8px);
   background: rgba(10, 11, 14, 0.88);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   backdrop-filter: blur(28px) saturate(190%);
-  border-top: 1px solid var(--hairline-strong);
+  border-top: none;
+  box-shadow:
+    0 -1px 0 0 rgba(255, 255, 255, 0.06),
+    0 -18px 28px -18px rgba(0, 0, 0, 0.72);
 }
 
 html[data-platform='ios'] .nav-bottom .nav-list {
@@ -181,5 +178,5 @@ html[data-platform='ios'] .nav-bottom .nav-item {
 }
 
 .nav-rail .nav-label {
-  font-size: 12px;
+  font-size: var(--t-caption);
 }

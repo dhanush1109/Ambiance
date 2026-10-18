@@ -36,12 +36,11 @@ export const useUiStore = create((set) => ({
   },
 }))
 
+/** Primary tab bar — Settings lives in the header gear (keeps ≤5 tabs). */
 export const TABS = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'moods', label: 'Moods', icon: 'moods' },
   { id: 'effects', label: 'Effects', icon: 'effects' },
   { id: 'favorites', label: 'Saved', icon: 'favorites' },
-  // Short label — six tabs must stay scannable on a phone tab bar (HIG).
-  { id: 'dashcam', label: 'Cam', icon: 'dashcam' },
-  { id: 'settings', label: 'Settings', icon: 'settings' },
+  { id: 'dashcam', label: 'Dash Cam', icon: 'dashcam' },
 ]

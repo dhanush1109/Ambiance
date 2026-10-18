@@ -100,7 +100,7 @@
 .carhero-doorlabels text {
   fill: var(--text-muted);
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: var(--t-label);
   font-weight: 600;
   letter-spacing: var(--track-caps);
 }

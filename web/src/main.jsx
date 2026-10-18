@@ -16,13 +16,16 @@ import '@fontsource/inter/latin-700.css'
 import './theme/tokens.css'
 import './theme/glass.css'
 import App from './App'
+import ErrorBoundary from './components/ErrorBoundary'
 import { applyPlatformDataset } from './services/platform'
 
 applyPlatformDataset()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 )
 

@@ -98,7 +98,7 @@
 }
 
 .home-banner-btn {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 var(--s3);
   font-size: var(--t-label);
   flex: none;
@@ -152,7 +152,7 @@
 }
 
 .home-drift {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 var(--s3);
   flex: none;
 }
@@ -217,7 +217,7 @@
 }
 
 .home-quickname {
-  font-size: 11px;
+  font-size: var(--t-caps);
   color: var(--text-dim);
   text-align: center;
   line-height: 1.25;

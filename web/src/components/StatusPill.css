@@ -75,16 +75,12 @@ button.statuspill:active {
   margin-left: var(--s1);
 }
 
-.statuspill.is-compact {
-  min-height: 34px;
-  padding: 0 var(--s2) 0 var(--s3);
-}
-
 .statuspill.is-micro {
+  position: relative;
   min-height: 18px;
   padding: 0 6px;
   gap: 4px;
-  font-size: 9px;
+  font-size: var(--t-caps);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -92,6 +88,13 @@ button.statuspill:active {
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   backdrop-filter: blur(12px) saturate(180%);
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Keep the compact look, but expand the hit target to ≥44pt (HIG). */
+button.statuspill.is-micro::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
 }
 
 .statuspill.is-micro .statuspill-dot {

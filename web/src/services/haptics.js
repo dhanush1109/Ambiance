@@ -1,4 +1,5 @@
 import { useSettingsStore } from '../state/settingsStore'
+import { isNative } from './platform'
 
 /**
  * A small vibration vocabulary.
@@ -19,6 +20,10 @@ import { useSettingsStore } from '../state/settingsStore'
  *     never from the command layer, and never from the ambient engine.
  *     Otherwise a colour drag would buzz sixty times a second and drift mode
  *     would tap away on its own in the dark.
+ *
+ * On native (especially iOS) we use @capacitor/haptics / Core Haptics.
+ * `navigator.vibrate` is a no-op in WKWebView, so the web path alone left
+ * iPhones silent.
  */
 
 const TICK = 8
@@ -26,25 +31,61 @@ const TAP = 15
 const SUCCESS = [10, 30, 20]
 const ERROR = [30, 60, 30]
 
-function buzz(pattern) {
+let pluginPromise = null
+
+function loadPlugin() {
+  if (!pluginPromise) {
+    pluginPromise = import('@capacitor/haptics')
+      .then((m) => m)
+      .catch(() => null)
+  }
+  return pluginPromise
+}
+
+function webBuzz(pattern) {
   if (typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function') return
-  if (!useSettingsStore.getState().haptics) return
   try {
     navigator.vibrate(pattern)
   } catch {
-    // Some browsers throw when the page is not user-activated. Not worth caring.
+    // Some browsers throw when the page is not user-activated.
   }
+}
+
+async function nativeBuzz(kind) {
+  const mod = await loadPlugin()
+  if (!mod?.Haptics) {
+    webBuzz(kind === 'tick' ? TICK : kind === 'tap' ? TAP : kind === 'success' ? SUCCESS : ERROR)
+    return
+  }
+  const { Haptics, ImpactStyle, NotificationType } = mod
+  try {
+    if (kind === 'tick') await Haptics.impact({ style: ImpactStyle.Light })
+    else if (kind === 'tap') await Haptics.impact({ style: ImpactStyle.Medium })
+    else if (kind === 'success') await Haptics.notification({ type: NotificationType.Success })
+    else if (kind === 'error') await Haptics.notification({ type: NotificationType.Error })
+  } catch {
+    // Plugin refused (simulator, muted, etc.) — silent is fine.
+  }
+}
+
+function fire(kind, webPattern) {
+  if (!useSettingsStore.getState().haptics) return
+  if (isNative()) {
+    void nativeBuzz(kind)
+    return
+  }
+  webBuzz(webPattern)
 }
 
 export const haptics = {
   /** Lightest touch: selection changed. */
-  tick: () => buzz(TICK),
+  tick: () => fire('tick', TICK),
   /** A setting was applied. */
-  tap: () => buzz(TAP),
+  tap: () => fire('tap', TAP),
   /** The rarest good event in the app: the car is connected. */
-  success: () => buzz(SUCCESS),
+  success: () => fire('success', SUCCESS),
   /** The link dropped, or a command never landed. */
-  error: () => buzz(ERROR),
+  error: () => fire('error', ERROR),
 }
 
 /**
