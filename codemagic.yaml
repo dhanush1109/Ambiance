@@ -17,7 +17,12 @@ workflows:
     scripts:
       - name: Install npm dependencies
         script: |
-          npm ci
+          # Lockfile was generated on Windows; npm ci skips other-OS optional
+          # deps (e.g. @rollup/rollup-darwin-arm64). Fresh install on the Mac
+          # runner, then pin the Rollup native binary explicitly.
+          rm -rf node_modules
+          npm install
+          npm install --no-save @rollup/rollup-darwin-arm64
       - name: Build web assets
         script: |
           npm run build
