@@ -35,11 +35,11 @@ workflows:
           pod install
       - name: Build unsigned IPA for SideStore
         script: |
-          set -e
+          set -euo pipefail
           cd ios/App
           ARCHIVE_PATH="$CM_BUILD_DIR/web/build/Ambiance.xcarchive"
           IPA_DIR="$CM_BUILD_DIR/web/build/ipa"
-          mkdir -p "$IPA_DIR"
+          mkdir -p "$IPA_DIR" "$CM_EXPORT_DIR"
 
           xcodebuild \
             -workspace "$XCODE_WORKSPACE" \
@@ -56,18 +56,29 @@ workflows:
           APP_PATH=$(find "$ARCHIVE_PATH/Products/Applications" -name "*.app" | head -n 1)
           if [ -z "$APP_PATH" ]; then
             echo "No .app found in archive"
+            find "$ARCHIVE_PATH" -maxdepth 4 -print || true
             exit 1
           fi
 
           rm -rf Payload
           mkdir Payload
           cp -R "$APP_PATH" Payload/
-          zip -qr "$IPA_DIR/Ambiance.ipa" Payload
+          # IPA must end with .ipa for Codemagic to list it separately
+          ditto -c -k --sequesterRsrc --keepParent Payload "$IPA_DIR/Ambiance.ipa" || zip -qr "$IPA_DIR/Ambiance.ipa" Payload
           rm -rf Payload
-          echo "IPA ready: $IPA_DIR/Ambiance.ipa"
-          ls -lh "$IPA_DIR/Ambiance.ipa"
+
+          cp "$IPA_DIR/Ambiance.ipa" "$CM_BUILD_DIR/Ambiance.ipa"
+          cp "$IPA_DIR/Ambiance.ipa" "$CM_EXPORT_DIR/Ambiance.ipa"
+
+          echo "IPA ready:"
+          ls -lh "$IPA_DIR/Ambiance.ipa" "$CM_BUILD_DIR/Ambiance.ipa" "$CM_EXPORT_DIR/Ambiance.ipa"
+          # Fail loudly if the package is empty / missing
+          test -s "$CM_BUILD_DIR/Ambiance.ipa"
     artifacts:
+      - Ambiance.ipa
       - web/build/ipa/*.ipa
+      - $CM_BUILD_DIR/Ambiance.ipa
+      - $CM_BUILD_DIR/web/build/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
     publishing:
       email:
