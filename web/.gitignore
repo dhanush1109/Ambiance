@@ -4,13 +4,17 @@ dist-ssr/
 *.local
 .vite/
 
-# Capacitor generated iOS (Android project is committed)
-ios/
+# iOS native project is committed (like android/); pods/build stay ignored via ios/.gitignore
 
 # Signing — never commit these
 *.keystore
 *.jks
 keystore.properties
+# Shared secrets for the dashcam status relay
+.dashcam-token
+.dashcam-paircode
 
 .DS_Store
 *.log
+.vercel
+.env*.local

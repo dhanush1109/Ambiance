@@ -4,11 +4,16 @@
   "webDir": "dist",
   "backgroundColor": "#000000",
   "android": {
-    "allowMixedContent": false,
+    "allowMixedContent": true,
     "backgroundColor": "#000000"
   },
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "ios": {
+    "backgroundColor": "#000000",
+    "contentInset": "automatic"
   },
   "plugins": {
     "SplashScreen": {
