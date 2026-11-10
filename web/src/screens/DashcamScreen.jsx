@@ -3,12 +3,57 @@ import Card from '../components/Card'
 import Icon from '../components/Icon'
 import { useUiStore } from '../state/uiStore'
 import { useDashcamStore, isLive, statusAge } from '../state/dashcamStore'
+import { useClipStore } from '../state/clipStore'
 import { isDirectBlocked, streamUrls } from '../services/dashcamApi'
 import { isPinnedCamera, formatFirmware } from '../services/dashcamProtocol'
-import { DASHCAM_NAME, PINNED_CAMERA, POLL_MS } from '../config/dashcam'
+import { DASHCAM_NAME, PINNED_CAMERA, POLL_MS, TELEGRAM_MAX_BYTES } from '../config/dashcam'
+import { resolveClipPlayback } from '../services/dashcamUpload'
 import { haptics } from '../services/haptics'
 import './screens.css'
 import './dashcam.css'
+
+function formatBytes(n) {
+  if (!Number.isFinite(n) || n <= 0) return ''
+  if (n < 1024 * 1024) return `${Math.round(n / 1024)} KB`
+  return `${(n / (1024 * 1024)).toFixed(n >= 10 * 1024 * 1024 ? 0 : 1)} MB`
+}
+
+function clipPhaseLabel(phase, current) {
+  switch (phase) {
+    case 'scanning':
+      return 'Looking for clips on the camera…'
+    case 'downloading':
+      return current ? `Saving ${current}…` : 'Saving a clip…'
+    case 'uploading':
+      return current ? `Uploading ${current}…` : 'Uploading…'
+    case 'camera':
+      return 'On camera Wi-Fi — pulling clips'
+    case 'online':
+      return 'Online — uploading when clips are ready'
+    case 'need_telegram':
+      return 'Cloud backup is not configured on the server yet'
+    case 'unpaired':
+      return 'Pair this device to sync clips'
+    case 'error':
+      return 'Sync paused'
+    default:
+      return 'Clips sync across every phone with this app'
+  }
+}
+
+function formatClipWhen(ms) {
+  if (!Number.isFinite(ms) || ms <= 0) return ''
+  try {
+    return new Date(ms).toLocaleString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  } catch {
+    return ''
+  }
+}
 
 /** MB from the firmware, read as something a person would say. */
 function formatSize(mb) {
@@ -122,8 +167,21 @@ export default function DashcamScreen() {
   const command = useDashcamStore((s) => s.command)
   const pair = useDashcamStore((s) => s.pair)
 
+  const clipPhase = useClipStore((s) => s.phase)
+  const clipQueue = useClipStore((s) => s.queue)
+  const clipLedger = useClipStore((s) => s.ledger)
+  const clipError = useClipStore((s) => s.error)
+  const clipCurrent = useClipStore((s) => s.current)
+  const clipTelegram = useClipStore((s) => s.telegram)
+  const kickClips = useClipStore((s) => s.kick)
+
+  const [player, setPlayer] = useState(null) // { name, url } | null
+  const [playBusy, setPlayBusy] = useState(null) // clip name while resolving
+  const [playError, setPlayError] = useState(null)
+
   const open = tab === 'dashcam'
   const remote = isDirectBlocked()
+  const uploadedClips = clipLedger.filter((c) => c.state === 'uploaded')
 
   // "Updated 2 min ago" has to keep counting on its own, because a camera
   // that has gone quiet produces no state change to re-render on. Held as
@@ -171,6 +229,31 @@ export default function DashcamScreen() {
       showToast(action === 'start' ? 'Recording started' : 'Recording stopped', 'ok')
     } catch (err) {
       showToast(err?.message || 'Camera did not answer', 'error')
+    }
+  }
+
+  const watchClip = async (clip) => {
+    haptics.tap()
+    setPlayError(null)
+    setPlayBusy(clip.name)
+    try {
+      const result = await resolveClipPlayback(clip)
+      if (result.mode === 'stream' && result.url) {
+        setPlayer({ name: clip.name, url: result.url })
+      } else if (result.mode === 'telegram' && result.url) {
+        // Larger than Telegram's in-app download ceiling — open the same
+        // message in Telegram rather than leaving the clip unreachable.
+        window.open(result.url, '_blank', 'noopener,noreferrer')
+        showToast('Opening in Telegram', 'ok')
+      } else {
+        setPlayError(result.reason || 'Could not open that clip')
+        showToast(result.reason || 'Could not open that clip', 'error')
+      }
+    } catch (err) {
+      setPlayError(err?.message || 'Could not open that clip')
+      showToast(err?.message || 'Could not open that clip', 'error')
+    } finally {
+      setPlayBusy(null)
     }
   }
 
@@ -316,6 +399,128 @@ export default function DashcamScreen() {
           </span>
         </Card>
       </div>
+
+      <Card className="dc-sync">
+        <div className="dc-sync-top">
+          <div>
+            <p className="dc-note-title">
+              <Icon name="dashcam" size={16} />
+              Clips
+            </p>
+            <p className="screen-note dc-note-body">
+              {clipPhaseLabel(clipPhase, clipCurrent)}
+              {!clipTelegram && clipPhase !== 'need_telegram' && clipPhase !== 'unpaired'
+                ? ' · Waiting for backup credentials'
+                : ''}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="dc-refresh pressable"
+            onClick={() => {
+              haptics.tap()
+              kickClips()
+            }}
+            aria-label="Sync dashcam clips now"
+          >
+            <Icon name="refresh" size={18} />
+          </button>
+        </div>
+
+        <p className="screen-note dc-note-body">
+          Watch clips here on any phone with Ambiance. Join the camera Wi-Fi to
+          pull new ones; when you have internet they backup automatically so
+          every device can see them. Clips over{' '}
+          {Math.round(TELEGRAM_MAX_BYTES / (1024 * 1024))} MB are skipped.
+        </p>
+
+        {uploadedClips.length ? (
+          <ul className="dc-clip-list">
+            {uploadedClips.slice(0, 20).map((item) => (
+              <li key={`up-${item.name}`}>
+                <button
+                  type="button"
+                  className="dc-clip-row pressable"
+                  onClick={() => watchClip(item)}
+                  disabled={playBusy === item.name}
+                >
+                  <span className="dc-clip-play" aria-hidden="true">
+                    <Icon name="play" size={16} filled />
+                  </span>
+                  <span className="dc-clip-text">
+                    <span className="dc-clip-name">{item.name}</span>
+                    <span className="dc-clip-meta">
+                      {formatBytes(item.size)}
+                      {item.size ? ' · ' : ''}
+                      {formatClipWhen(item.uploadedAt) || 'Saved'}
+                      {playBusy === item.name ? ' · Opening…' : ''}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="dc-clip-empty">
+            No saved clips yet. Join the camera Wi-Fi with Ambiance open, then
+            come back online — they appear here on every paired phone.
+          </p>
+        )}
+
+        {clipQueue.length ? (
+          <>
+            <p className="dc-clip-section">Waiting to upload</p>
+            <ul className="dc-clip-list">
+              {clipQueue.slice(0, 8).map((item) => (
+                <li key={`q-${item.name}-${item.size}`}>
+                  <span className="dc-clip-name">
+                    {item.locked ? 'Locked · ' : ''}
+                    {item.name}
+                  </span>
+                  <span className="dc-clip-meta">
+                    {formatBytes(item.size)}
+                    {item.size ? ' · ' : ''}
+                    {item.state}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+
+        {clipError || playError ? (
+          <p className="screen-note dc-error" role="status">
+            {playError || clipError}
+          </p>
+        ) : null}
+      </Card>
+
+      {player ? (
+        <div
+          className="dc-player"
+          role="dialog"
+          aria-label={`Playing ${player.name}`}
+        >
+          <div className="dc-player-bar">
+            <span className="dc-player-title">{player.name}</span>
+            <button
+              type="button"
+              className="dc-refresh pressable"
+              onClick={() => setPlayer(null)}
+              aria-label="Close player"
+            >
+              <Icon name="close" size={18} />
+            </button>
+          </div>
+          <video
+            className="dc-player-video"
+            src={player.url}
+            controls
+            autoPlay
+            playsInline
+          />
+        </div>
+      ) : null}
 
       {/* Recording commands travel to the camera directly, which is only
           possible on its own Wi-Fi. Hidden rather than shown broken. */}

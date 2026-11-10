@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tells the Android Auto host what kind of car experience this app offers.
+
+  "template" means every car screen is built from the Android for Cars App
+  Library templates rather than from the app's own views. That is the only
+  option available to us: Ambiance's real UI is a Capacitor WebView, and a
+  WebView can never be drawn on a car display.
+-->
+<automotiveApp>
+    <uses name="template" />
+</automotiveApp>

@@ -15,6 +15,7 @@ import { useUiStore } from './state/uiStore'
 import { useLightStore, dominantHex } from './state/lightStore'
 import { useSettingsStore } from './state/settingsStore'
 import { useConnectionStore } from './state/connectionStore'
+import { useClipStore } from './state/clipStore'
 import { useBreakpoint } from './hooks/useBreakpoint'
 import { controller } from './services/controller'
 import { startAutoReconnect } from './services/reconnect'
@@ -77,6 +78,11 @@ export default function App() {
     initKeepAwake()
     initStatusBar()
     initTimeOfDayScheduler()
+
+    // Dashcam → Telegram Drive: any paired phone that opens the app will
+    // pull clips while on the camera Wi-Fi and push them when it next has
+    // internet. The shared ledger stops two phones uploading the same clip.
+    useClipStore.getState().start()
 
     // On a fresh connection: restore the last look, and fade it up unless the
     // link only blipped for a moment.

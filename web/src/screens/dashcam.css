@@ -273,6 +273,149 @@
   color: var(--danger);
 }
 
+.dc-sync {
+  margin-bottom: var(--s4);
+}
+
+.dc-sync-top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.dc-sync-top > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.dc-clip-list {
+  list-style: none;
+  margin: var(--s3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dc-clip-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: 0;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline);
+  background: var(--fill-1);
+  font-size: var(--t-caption);
+  overflow: hidden;
+}
+
+.dc-clip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  padding: 10px var(--s3);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dc-clip-row:disabled {
+  opacity: 0.6;
+}
+
+.dc-clip-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--fill-2);
+  color: var(--text);
+}
+
+.dc-clip-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dc-clip-list li > .dc-clip-name,
+.dc-clip-list li > .dc-clip-meta {
+  padding: 8px var(--s3);
+}
+
+.dc-clip-name {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.dc-clip-meta {
+  flex: none;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.dc-clip-section {
+  margin: var(--s4) 0 var(--s2);
+  font-size: var(--t-label);
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.dc-clip-empty {
+  margin: var(--s3) 0 0;
+  font-size: var(--t-caption);
+  color: var(--text-muted);
+}
+
+.dc-player {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+.dc-player-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3) var(--s4);
+  color: #fff;
+}
+
+.dc-player-title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dc-player-bar .dc-refresh {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dc-player-video {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  background: #000;
+  object-fit: contain;
+}
+
 @media (min-width: 640px) {
   .dc-stats {
     grid-template-columns: repeat(4, 1fr);

@@ -9,6 +9,9 @@ ext {
     androidxFragmentVersion = '1.8.4'
     coreSplashScreenVersion = '1.0.1'
     androidxWebkitVersion = '1.12.1'
+    // Android for Cars App Library. Android Auto renders templates from this
+    // library only — the Capacitor WebView cannot be shown on a car screen.
+    carAppVersion = '1.4.0'
     junitVersion = '4.13.2'
     androidxJunitVersion = '1.2.1'
     androidxEspressoCoreVersion = '3.6.1'

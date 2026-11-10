@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Cleartext HTTP, allowed for the dashcam and nothing else.
+
+  The camera is its own Wi-Fi access point on a fixed private address. It
+  speaks plain HTTP CGI and has no TLS at all — there is no certificate to
+  trust, and no firmware option to add one. So reaching it requires an
+  explicit cleartext exemption.
+
+  Scoped to the two addresses the camera actually uses rather than flipping
+  `android:usesCleartextTraffic="true"` on the whole app. A blanket opt-in
+  would also silently permit cleartext to the relay and to any future
+  endpoint, which is how an app ends up sending real traffic unencrypted
+  without anyone noticing. Everything else in the app stays HTTPS-only.
+
+  Addresses recovered from the vendor app; see research/dashcam/PROTOCOL.md.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Novatek-family firmware -->
+        <domain includeSubdomains="false">192.168.1.254</domain>
+        <!-- The other family seen under this app -->
+        <domain includeSubdomains="false">192.168.169.1</domain>
+    </domain-config>
+</network-security-config>

@@ -73,6 +73,9 @@ export const CGI = {
   recordStart: 'workmodecmd.cgi?&-cmd=start',
   recordStop: 'workmodecmd.cgi?&-cmd=stop',
   recordTrigger: 'workmodecmd.cgi?&-cmd=trigger',
+  /** File listing — firmware dialects vary; the client tries several shapes. */
+  fileList: 'getfilelist.cgi',
+  dirFileList: 'getdirfilelist.cgi',
 }
 
 /**
@@ -96,6 +99,12 @@ export const POLL_MS = 10_000
 
 /** Relay endpoint path. */
 export const RELAY_PATH = '/api/dashcam-status'
+
+/** Shared ledger of clips already pushed to Telegram. */
+export const CLIPS_PATH = '/api/dashcam-clips'
+
+/** Bot token + chat id for paired devices (server-gated by pair code). */
+export const TELEGRAM_PATH = '/api/dashcam-telegram'
 
 /**
  * Where the relay lives for clients that are not served from it.
@@ -121,3 +130,26 @@ export const RELAY_ORIGIN = 'https://ambiance-amber.vercel.app'
  * alternative is an account system for a single-owner app.
  */
 export const PAIR_KEY = 'ambiance.dashcam.pair'
+
+/** Stable id for this install — used when claiming a clip for upload. */
+export const DEVICE_ID_KEY = 'ambiance.dashcam.device'
+
+/** Local queue of clips waiting to go to Telegram. */
+export const CLIP_QUEUE_KEY = 'ambiance.dashcam.queue'
+
+/**
+ * Public Bot API rejects uploads whose whole multipart body exceeds ~50 MiB.
+ * 49 MiB of file leaves headroom for the envelope. Larger clips are marked
+ * skipped in the ledger; pull them with Telegram Drive Folder Sync instead.
+ */
+export const TELEGRAM_MAX_BYTES = 49 * 1024 * 1024
+
+/** How often the sync loop looks for work while the dashcam screen is open. */
+export const CLIP_SYNC_MS = 20_000
+
+/**
+ * Directories to pull from, in priority order. Locked/event clips first —
+ * those are the ones worth keeping if mobile data is scarce — then the
+ * normal movie loop.
+ */
+export const CLIP_DIRS = [MEDIA_ROOTS.locked, MEDIA_ROOTS.movie]
